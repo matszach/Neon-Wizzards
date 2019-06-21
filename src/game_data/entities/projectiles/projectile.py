@@ -1,5 +1,6 @@
 from src.game_data.entities.entity import Entity
 from src.controllers.entity_handlers import AC_MONSTERS, AC_OBSTACLES, AC_PROJECTILES, PLAYER
+from random import randint
 
 
 # parent class to all projectiles
@@ -8,21 +9,26 @@ class Projectile(Entity):
     # ===== lifecycle =====
     def passive_work(self):
 
+        # animate every frame
+        self.animate()
+
         # expire on max range reached
         self.travel_air(self.dir, self.v)
         self.range -= self.v
         if self.range <= 0:
             self.expire()
 
-        # expire on wall collision
-        if self.check_if_in_wall():
-            self.expire()
-
-        # check other entity collisions
+        # check collisions
+        self.curr_col_check_interval += 1
         if self.curr_col_check_interval >= self.max_col_check_interval:
+
+            # expire on wall collision
+            if self.check_if_in_wall():
+                self.expire()
+
+            # check other collisions
             self.check_all_entity_collisions()
             self.curr_col_check_interval = 0
-        self.curr_col_check_interval += 1
 
     # ===== collisions =====
     # describes effect of a collision with a character
@@ -39,9 +45,6 @@ class Projectile(Entity):
 
     # check collisions
     def check_all_entity_collisions(self):
-
-        # animate every frame
-        self.animate()
 
         # todo expire "checker" may be needed here or in "on_[type]_collision" methods
         #  to prevent multiple collision in one collision check cycle
@@ -96,7 +99,7 @@ class Projectile(Entity):
 
         # how often the projectile checks for collisions (measured in frames)
         self.max_col_check_interval = col_check_interval
-        self.curr_col_check_interval = 0
+        self.curr_col_check_interval = randint(0, col_check_interval)
 
         # if true - will check collision for given entity type
         self.col_with_player = col_with_player

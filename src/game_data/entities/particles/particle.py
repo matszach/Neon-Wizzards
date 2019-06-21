@@ -1,5 +1,4 @@
 from src.game_data.entities.entity import Entity
-from src.controllers.entity_handlers import PLAYER
 
 
 # parent class to all pickups
@@ -10,6 +9,9 @@ class Particle(Entity):
 
         # animate every frame
         self.animate()
+
+        # travel
+        self.travel_unchecked(self.dir, self.v)
 
         # expire on end of duration
         self.duration_left -= 1
