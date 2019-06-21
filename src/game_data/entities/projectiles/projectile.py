@@ -19,7 +19,10 @@ class Projectile(Entity):
             self.expire()
 
         # check other entity collisions
-        self.check_all_entity_collisions()
+        if self.curr_col_check_interval >= self.max_col_check_interval:
+            self.check_all_entity_collisions()
+            self.curr_col_check_interval = 0
+        self.curr_col_check_interval += 1
 
     # ===== collisions =====
     # describes effect of a collision with a character
@@ -36,6 +39,9 @@ class Projectile(Entity):
 
     # check collisions
     def check_all_entity_collisions(self):
+
+        # animate every frame
+        self.animate()
 
         # todo expire "checker" may be needed here or in "on_[type]_collision" methods
         #  to prevent multiple collision in one collision check cycle
@@ -89,7 +95,8 @@ class Projectile(Entity):
         self.range = max_range
 
         # how often the projectile checks for collisions (measured in frames)
-        self.col_check_interval = col_check_interval
+        self.max_col_check_interval = col_check_interval
+        self.curr_col_check_interval = 0
 
         # if true - will check collision for given entity type
         self.col_with_player = col_with_player
