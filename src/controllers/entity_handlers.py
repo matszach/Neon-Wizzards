@@ -13,11 +13,10 @@ AC_AREAS = []
 AC_OBSTACLES = []
 AC_PICKUPS = []
 AC_CORPSES = []
-AC_SUMMONINGS = []
 
 AC_MONSTERS = []
-
 AC_ALLIES = []
+
 AC_PARTICLES = []
 AC_PROJECTILES = []
 
@@ -77,7 +76,7 @@ cull_timer = [0]
 def handle_all():
 
     # "under-characters" entities
-    for entity_set in [AC_AREAS, AC_OBSTACLES, AC_PICKUPS, AC_CORPSES, AC_SUMMONINGS]:
+    for entity_set in [AC_AREAS, AC_OBSTACLES, AC_PICKUPS, AC_CORPSES]:
         for e in entity_set:
             e.passive_work()
             paint_entity(e)
@@ -88,12 +87,17 @@ def handle_all():
         m.active_work()
         paint_monster(m)
 
+    for a in AC_ALLIES:
+        a.passive_work()
+        a.active_work()
+        paint_monster(a)
+
     # PLAYER[0].passive_work()
     # PLAYER[0].active_work()
     # paint_player(PLAYER[0])
 
     # "over-characters" entities
-    for entity_set in [AC_AREAS, AC_OBSTACLES, AC_PICKUPS, AC_CORPSES, AC_SUMMONINGS]:
+    for entity_set in [AC_PARTICLES, AC_PROJECTILES]:
         for e in entity_set:
             e.passive_work()
             paint_entity(e)
@@ -113,7 +117,7 @@ def handle_all():
 def paint_all():
 
     # "under-characters" entities
-    for entity_set in [AC_AREAS, AC_OBSTACLES, AC_PICKUPS, AC_CORPSES, AC_SUMMONINGS]:
+    for entity_set in [AC_AREAS, AC_OBSTACLES, AC_PICKUPS, AC_CORPSES]:
         for e in entity_set:
             paint_entity(e)
 
@@ -121,10 +125,13 @@ def paint_all():
     for m in AC_MONSTERS:
         paint_monster(m)
 
+    for a in AC_ALLIES:
+        paint_monster(a)
+
     # paint_player(PLAYER[0])
 
     # "over-characters" entities
-    for entity_set in [AC_AREAS, AC_OBSTACLES, AC_PICKUPS, AC_CORPSES, AC_SUMMONINGS]:
+    for entity_set in [AC_PARTICLES, AC_PROJECTILES]:
         for e in entity_set:
             paint_entity(e)
 

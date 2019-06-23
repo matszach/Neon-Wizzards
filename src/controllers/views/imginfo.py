@@ -19,4 +19,7 @@ def load_sprite_set(path):
 
 
 # characters
-CHAR_DEFAULT = load_sprite_set('resources/spritesets/characters/default.png')
+CHAR_DEFAULT = load_sprite_set('resources/spritesets/characters/player_greg_muscle_wizard.png')
+
+# player characters
+PLAYER_CHAR_GREG = load_sprite_set('resources/spritesets/characters/player_greg_muscle_wizard.png')
