@@ -3,7 +3,7 @@
 # parent class to all entities that can be damaged (player, monsters, breakable obstacles)
 class Damageable:
 
-    def take_damage(self, dmg, dmg_type):
+    def take_damage(self, dmg, dmg_type=0):
 
         # reduces taken damage by appropriate defence
         post_def_damage = dmg - self.defences[dmg_type]

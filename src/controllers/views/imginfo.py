@@ -19,7 +19,9 @@ def load_sprite_set(path):
 
 
 # characters
-CHAR_DEFAULT = load_sprite_set('resources/spritesets/characters/player_greg_muscle_wizard.png')
+CHAR_DEFAULT = load_sprite_set('resources/spritesets/template.png')
 
 # player characters
-PLAYER_CHAR_GREG = load_sprite_set('resources/spritesets/characters/player_greg_muscle_wizard.png')
+PLAYER_CHAR_GREG = load_sprite_set('resources/spritesets/player_characters/greg_the_muscle_wizard.png')
+PLAYER_CHAR_ESTERA = load_sprite_set('resources/spritesets/player_characters/estera_the_blizzard_wizard.png')
+
