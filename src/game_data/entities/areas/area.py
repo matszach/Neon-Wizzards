@@ -13,6 +13,11 @@ class Area(Entity):
         # animate every frame
         self.animate()
 
+        # expire on duration end
+        self.duration -= 1
+        if self.duration <= 0:
+            self.expire()
+
         # check for entities in range
         self.curr_range_check_interval += 1
         if self.curr_range_check_interval >= self.max_range_check_interval:
