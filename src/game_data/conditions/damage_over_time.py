@@ -16,3 +16,6 @@ class DamageOverTime(Condition):
         # damage amount and type that's dealt to the subject every increment
         self.dmg_amount = dmg_amount
         self.dmg_type = dmg_type
+
+
+# TODO Bleeding, Burning etc - here

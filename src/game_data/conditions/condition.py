@@ -53,6 +53,9 @@ class Condition:
     def on_end(self, subject):
         pass
 
+    # TODO SOLVE A PROBLEM O MULTIPLE CONDITIONS OF THE SAME TYPE
+    #   STACKING / REFRESHING / BEST_ONE_STAYS ?
+
     # constructor
     def __init__(self, icon, duration=600, increment=30):
 
