@@ -31,15 +31,15 @@ class Projectile(Entity):
             self.curr_col_check_interval = 0
 
     # ===== collisions =====
-    # describes effect of a collision with a character
+    # describes take_effect of a collision with a character
     def on_character_collision(self, character):
         pass
 
-    # describes effect of a collision with an obstacle
+    # describes take_effect of a collision with an obstacle
     def on_obstacle_collision(self, obstacle):
         pass
 
-    # describes effect of a collision with another projectile
+    # describes take_effect of a collision with another projectile
     def on_projectile_collision(self, projectile):
         pass
 

@@ -7,14 +7,17 @@ class Character(Entity, Damageable):
 
     # ===== lifecycle =====
     def passive_work(self):
-        pass  # TODO
+        self.tick_cooldowns()
+        self.tick_banes()
+        self.tick_boons()
 
     def active_work(self):
         pass
 
     # ===== upkeep =====
     def tick_cooldowns(self):
-        pass  # TODO
+        for a in self.abilities:
+            a.tick_cooldown()
 
     def tick_boons(self):
         pass  # TODO
@@ -22,12 +25,16 @@ class Character(Entity, Damageable):
     def tick_banes(self):
         pass  # TODO
 
-    def continue_action_in_progress(self):
-        pass  # TODO
-
     # ===== actions =====
-    def switch_to_action(self, action_num):
-        pass  # TODO
+    def switch_to_ability(self, ability_num):
+        if not self.abilities[self.ability_chosen].in_use:
+            self.ability_chosen = ability_num
+
+    def use_chosen_ability(self):
+        self.abilities[self.ability_chosen].use()
+
+    def continue_action_in_progress(self):
+        self.abilities[self.ability_chosen].continue_usage()
 
     # constructor
     def __init__(self, sprite_set, display_size=1, collision_size=1, animation_timer=15,
@@ -60,7 +67,7 @@ class Character(Entity, Damageable):
 
         # abilities that the character has access to
         self.abilities = []
-        self.action_chosen = 0
+        self.ability_chosen = 0
 
 
 

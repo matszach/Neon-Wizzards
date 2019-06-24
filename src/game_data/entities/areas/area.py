@@ -31,15 +31,15 @@ class Area(Entity):
             self.curr_range_check_interval = 0
 
     # ===== effects on entities =====
-    # describes effect on a character withing areas range
+    # describes take_effect on a character withing areas range
     def on_character_within(self, character):
         pass
 
-    # describes effect on a obstacle withing areas range
+    # describes take_effect on a obstacle withing areas range
     def on_obstacle_within(self, obstacle):
         pass
 
-    # describes effect on a projectile withing areas range
+    # describes take_effect on a projectile withing areas range
     def on_projectile_within(self, projectile):
         pass
 
@@ -75,11 +75,11 @@ class Area(Entity):
 
     # checks if target entity is in range of the area (different than check_collision(), because areas are considered
     # circles for the purpose of detecting collisions
-    # area's collision size is considered it's radius of effect
+    # area's collision size is considered it's radius of take_effect
     def check_if_in_range(self, entity):
         return sqrt(abs(entity.x - self.x)**2 + abs(entity.y - self.y)**2) <= self.collision_size
 
-    # effects that affecting an entity has on the area (shrink, grow, weaken effect, increase duration ...)
+    # effects that affecting an entity has on the area (shrink, grow, weaken take_effect, increase duration ...)
     def on_affect(self):
         pass
 

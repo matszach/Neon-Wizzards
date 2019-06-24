@@ -16,7 +16,7 @@ class Pickup(Entity):
             self.on_picked_up(PLAYER[0])
             self.expire()
 
-    # effect that picking the pickup up has on the player
+    # take_effect that picking the pickup up has on the player
     def on_picked_up(self, player):
         pass
 
