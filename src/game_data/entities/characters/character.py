@@ -14,18 +14,32 @@ class Character(Entity, Damageable):
     def active_work(self):
         pass
 
-    # ===== upkeep =====
+    # ===== conditions =====
+    def apply_boon(self, condition):
+        condition.start(self)
+        self.boons.append(condition)
+
+    def tick_boons(self):
+        for b in self.boons:
+            b.tick()
+            if b.expired:
+                self.boons.remove(b)
+
+    def apply_bane(self, condition):
+        condition.start(self)
+        self.banes.append(condition)
+
+    def tick_banes(self):
+        for b in self.banes:
+            b.tick()
+            if b.expired:
+                self.banes.remove(b)
+
+    # ===== abilities =====
     def tick_cooldowns(self):
         for a in self.abilities:
             a.tick_cooldown()
 
-    def tick_boons(self):
-        pass  # TODO
-
-    def tick_banes(self):
-        pass  # TODO
-
-    # ===== actions =====
     def switch_to_ability(self, ability_num):
         if not self.abilities[self.ability_chosen].in_use:
             self.ability_chosen = ability_num
