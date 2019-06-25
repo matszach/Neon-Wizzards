@@ -41,14 +41,15 @@ class Entity:
         self.x += x
         self.y += y
 
-    def travel_ground(self, direction, distance):
+    def turn(self, direction):
         self.dir = direction
+
+    def travel_ground(self, direction, distance):
         x, y = polar_to_cartesian(direction, distance)
         x, y = self.clip_ground_movement_vector(x, y)
         self.move(x, y)
 
     def travel_air(self, direction, distance):
-        self.dir = direction
         x, y = polar_to_cartesian(direction, distance)
         x, y = self.clip_air_movement_vector(x, y)
         self.move(x, y)

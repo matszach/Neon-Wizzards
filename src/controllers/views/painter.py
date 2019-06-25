@@ -1,4 +1,5 @@
 from src.game_data.entities.characters.character import Character
+from src.controllers.views import imginfo as IMG
 
 
 def paint_player(player):
