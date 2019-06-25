@@ -33,6 +33,9 @@ class PlayerCharacter(Character):
         # score (may not be used)
         self.score = 0
 
+        # exp (used for purchasing abilities and stat increases between levels)
+        self.exp = 0
+
         # keys
         self.has_green_key = False
         self.has_red_key = False

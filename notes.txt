@@ -1,0 +1,4 @@
+ideas:
+
+pickups: coins, exp droplets, hp and mp "crystals" and maybe more binding of issac - like items?
+items that grant permanent stat boots / boosts+drops / new abilities

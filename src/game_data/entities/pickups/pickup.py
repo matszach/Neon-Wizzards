@@ -21,7 +21,7 @@ class Pickup(Entity):
         pass
 
     # constructor
-    def __init__(self, sprite_set, display_size=0.3, collision_size=0.4, animation_timer=15):
+    def __init__(self, sprite_set, display_size=0.6, collision_size=0.5, animation_timer=90):
 
         # super constructor
         Entity.__init__(self, sprite_set, display_size, collision_size, animation_timer)
