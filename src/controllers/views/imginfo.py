@@ -43,6 +43,12 @@ MONSTERS_SPRITESETS_PATH = f'{SPRITESETS_PATH}\\monsters'
 # obstacles
 OBSTACLES_SPRITESETS_PATH = f'{SPRITESETS_PATH}\\obstacles'
 
+OBSTACLE_DOOR_GREEN = create_image_table(f'{OBSTACLES_SPRITESETS_PATH}\\doors.png', 0, 4, 0, 1, SSIZE)
+OBSTACLE_DOOR_RED = create_image_table(f'{OBSTACLES_SPRITESETS_PATH}\\doors.png', 0, 4, 1, 2, SSIZE)
+OBSTACLE_DOOR_BLUE = create_image_table(f'{OBSTACLES_SPRITESETS_PATH}\\doors.png', 0, 4, 2, 3, SSIZE)
+OBSTACLE_DOOR_BOSS = create_image_table(f'{OBSTACLES_SPRITESETS_PATH}\\doors.png', 0, 4, 3, 4, SSIZE)
+OBSTACLE_DOOR_OPEN = create_image_table(f'{OBSTACLES_SPRITESETS_PATH}\\doors.png', 0, 4, 4, 5, SSIZE)
+
 # particles
 PARTICLES_SPRITESETS_PATH = f'{SPRITESETS_PATH}\\particles'
 
@@ -71,4 +77,5 @@ PROJECTILE_ICE_MISSILE = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}\\ice
 PROJECTILE_ICE_STAR = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}\\ice_projectiles.png', 0, 4, 1, 2, SSIZE)
 PROJECTILE_ICE_ORB = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}\\ice_projectiles.png', 0, 4, 2, 3, SSIZE)
 
-
+# LOG
+print('LOG: Spritesets loaded successfully.')
