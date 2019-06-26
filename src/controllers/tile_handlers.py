@@ -8,6 +8,6 @@ def reset():
     pass
 
 
-def handle_all():
+def handle_all(surface):
     pass
 

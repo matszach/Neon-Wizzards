@@ -7,7 +7,7 @@ def reset():
     active_buttons.clear()
 
 
-def handle_all():
+def handle_all(surface):
     for button in active_buttons:
         button.listen()
-        paint_button(button)
+        paint_button(surface, button)

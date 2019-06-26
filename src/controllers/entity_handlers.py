@@ -4,7 +4,7 @@ from src.controllers.views.painter import paint_entity, paint_monster, paint_pla
 holds player at 0th index,
 list used for its immutability (?)
 """
-PLAYER = []
+PLAYER = [None]
 
 """
 active entities in their draw order
@@ -73,34 +73,34 @@ CULL_INCREMENT = 120
 cull_timer = [0]
 
 
-def handle_all():
+def handle_all(surface):
 
     # "under-characters" entities
     for entity_set in [AC_AREAS, AC_OBSTACLES, AC_PICKUPS, AC_CORPSES]:
         for e in entity_set:
             e.passive_work()
-            paint_entity(e)
+            paint_entity(surface, e)
 
     # characters
     for m in AC_MONSTERS:
         m.passive_work()
         m.active_work()
-        paint_monster(m)
+        paint_monster(surface, m)
 
     for a in AC_ALLIES:
         a.passive_work()
         a.active_work()
-        paint_monster(a)
+        paint_monster(surface, a)
 
-    # PLAYER[0].passive_work()
-    # PLAYER[0].active_work()
-    # paint_player(PLAYER[0])
+    PLAYER[0].passive_work()
+    PLAYER[0].active_work()
+    paint_player(surface, PLAYER[0])
 
     # "over-characters" entities
     for entity_set in [AC_PARTICLES, AC_PROJECTILES]:
         for e in entity_set:
             e.passive_work()
-            paint_entity(e)
+            paint_entity(surface, e)
 
     # active/dormant culling
     if cull_timer[0] >= CULL_INCREMENT:
@@ -114,24 +114,32 @@ def handle_all():
 """
 
 
-def paint_all():
+def paint_all(surface):
 
     # "under-characters" entities
     for entity_set in [AC_AREAS, AC_OBSTACLES, AC_PICKUPS, AC_CORPSES]:
         for e in entity_set:
-            paint_entity(e)
+            paint_entity(surface, e)
 
     # characters
     for m in AC_MONSTERS:
-        paint_monster(m)
+        paint_monster(surface, m)
 
     for a in AC_ALLIES:
-        paint_monster(a)
+        paint_monster(surface, a)
 
-    # paint_player(PLAYER[0])
+    paint_player(surface, PLAYER[0])
 
     # "over-characters" entities
     for entity_set in [AC_PARTICLES, AC_PROJECTILES]:
         for e in entity_set:
-            paint_entity(e)
+            paint_entity(surface, e)
 
+
+# TEST fixme #
+from src.game_data._complete_sets.complete_player_characters.greg.pc_greg import PlayerCharacterGreg
+PLAYER[0] = PlayerCharacterGreg()
+PLAYER[0].deg = 135
+PLAYER[0].x = 5
+PLAYER[0].y = 5
+print('LOG: Test player loaded successfully.')

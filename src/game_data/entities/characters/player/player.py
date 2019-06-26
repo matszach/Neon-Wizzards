@@ -19,7 +19,7 @@ class PlayerCharacter(Character):
         self.has_boss_key = False
 
     # constructor
-    def __init__(self, sprite_set, display_size=1, collision_size=1, animation_timer=15,
+    def __init__(self, sprite_set, display_size=1, collision_size=1, animation_timer=7,
                  hp=100, physical_def=0, fire_def=0, cold_def=0, lightning_def=0,
                  holy_def=0, shadow_def=0, acid_def=0,
                  mp=100, speed=0.1, strength=5, dexterity=5, intelligence=5, flying=False):
