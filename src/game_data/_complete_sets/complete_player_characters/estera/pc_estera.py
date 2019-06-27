@@ -11,7 +11,7 @@ FIRE_DEF = -1
 HP = 70
 MP = 130
 
-SPEED = 0.05
+SPEED = 0.04
 
 STR = 3
 DEX = 5
@@ -28,3 +28,8 @@ class PlayerCharacterEstera(PlayerCharacter):
                                  collision_size=COL_SIZE,
                                  fire_def=FIRE_DEF, cold_def=COLD_DEF, hp=HP, mp=MP, speed=SPEED,
                                  strength=STR, dexterity=DEX, intelligence=INT)
+
+        # temp todo
+        from src.game_data.abilities.player_oriented.player_melee_ability import PlayerMeleeAbility
+        import src.game_data.abilities.countersinfo as ci
+        self.abilities.append(PlayerMeleeAbility(self, frame_counters=ci.MEDIUM_COUNTER))

@@ -1,4 +1,7 @@
 from src.game_data.entities.characters.character import Character
+from src.controllers.views.viewinfo import current_usable_window_space as cws
+from util.unit_conversion import cartesian_to_polar
+import pygame
 
 
 # parent class to all player characters
@@ -6,8 +9,46 @@ class PlayerCharacter(Character):
 
     # ===== lifecycle =====
     def active_work(self):
-        # TODO user input handling here
-        pass
+
+        keys = pygame.key.get_pressed()
+
+        # ===== movement =====
+        right = keys[pygame.K_d]
+        left = keys[pygame.K_a]
+        up = keys[pygame.K_w]
+        down = keys[pygame.K_s]
+
+        if right:
+            ver = 0
+            if up:
+                ver -= 45
+            if down:
+                ver += 45
+            self.character_travel(90 + ver)
+        elif left:
+            ver = 0
+            if up:
+                ver += 45
+            if down:
+                ver -= 45
+            self.character_travel(270 + ver)
+        elif up:
+            self.character_travel(0)
+        elif down:
+            self.character_travel(180)
+
+        # ===== turning =====
+        loc = pygame.mouse.get_pos()
+        mouse_x_from_center = loc[0] - (cws[0]+cws[2])/2
+        mouse_y_from_center = loc[1] - (cws[1]+cws[3])/2
+        angle, radius = cartesian_to_polar(mouse_x_from_center, mouse_y_from_center)
+        self.turn(angle)
+
+        # ===== abilities =====
+        btn = pygame.mouse.get_pressed()
+
+        if btn[0]:
+            self.use_chosen_ability()
 
     # reset on finishing a level
     def prepare_for_next_level(self):
@@ -19,7 +60,7 @@ class PlayerCharacter(Character):
         self.has_boss_key = False
 
     # constructor
-    def __init__(self, sprite_set, display_size=1, collision_size=1, animation_timer=7,
+    def __init__(self, sprite_set, display_size=1, collision_size=1, animation_timer=18,
                  hp=100, physical_def=0, fire_def=0, cold_def=0, lightning_def=0,
                  holy_def=0, shadow_def=0, acid_def=0,
                  mp=100, speed=0.1, strength=5, dexterity=5, intelligence=5, flying=False):

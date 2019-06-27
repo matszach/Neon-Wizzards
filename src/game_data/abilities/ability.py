@@ -20,21 +20,14 @@ class Ability:
                 self.take_effect()
                 self.executed = True
 
-            # resets ability on "4"
-            elif self.stage >= 4:
-                self.reset()
-
             # animates through stages
             self.current_animation_counter += 1
             if self.current_animation_counter >= self.frame_counters[self.stage]:
+                self.current_animation_counter = 0
                 self.stage += 1
 
-            # activates ability's take_effect on "3"
-            if self.stage == 3:
-                self.take_effect()
-
             # resets ability on "4"
-            elif self.stage >= 4:
+            if self.stage >= 4:
                 self.reset()
 
     # ===== actual take_effect ====

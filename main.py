@@ -35,18 +35,18 @@ pygame.display.set_caption('Neon Wizards')
 # manages tme between screen updates
 clock = pygame.time.Clock()
 
+
 # main game loop
 while True:
 
-    clock.tick(17)
+    clock.tick(60)  # 60 fps
 
     # list of events (keyboard / mouse presses)
     for event in pygame.event.get():
 
         # if QUIT (X pressed) -> close the app
         if event.type == pygame.QUIT:
-            # sys.exit()
-            set_full_screen_mode()
+            sys.exit()
 
         if event.type == pygame.VIDEORESIZE:
             vi.adjust(event.w, event.h)

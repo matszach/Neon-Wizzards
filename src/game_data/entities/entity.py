@@ -81,6 +81,7 @@ class Entity:
         new_y = y
 
         # y clipping
+        y = y if y != 0 else 0.00001
         yi = round(self.y + y + self.collision_size / 2 * y / abs(y))
         for xi in range(round(self.x - self.collision_size/2), round(self.x + self.collision_size/2) + 1):
             if get_field_at(xi, yi) in [1, 2]:
@@ -93,6 +94,7 @@ class Entity:
                 break
 
         # x clipping
+        x = x if x != 0 else 0.00001
         xj = round(self.x + x + self.collision_size / 2 * x / abs(x))
         for yj in range(round(self.y - self.collision_size / 2), round(self.y + self.collision_size / 2) + 1):
             if get_field_at(xj, yj) in [1, 2]:
@@ -111,6 +113,7 @@ class Entity:
         new_y = y
 
         # y clipping
+        y = y if y != 0 else 0.00001
         yi = round(self.y + y + self.collision_size / 2 * y / abs(y))
         for xi in range(round(self.x - self.collision_size / 2), round(self.x + self.collision_size / 2) + 1):
             if get_field_at(xi, yi) == 1:
@@ -123,6 +126,7 @@ class Entity:
                 break
 
         # x clipping
+        x = x if x != 0 else 0.00001
         xj = round(self.x + x + self.collision_size / 2 * x / abs(x))
         for yj in range(round(self.y - self.collision_size / 2), round(self.y + self.collision_size / 2) + 1):
             if get_field_at(xj, yj) == 1:
@@ -155,6 +159,8 @@ class Entity:
         self.dir = 0
 
         # size of displayed image [units]
+        # * based on actual 32x32 / 16x16 Image loaded, ot on actual entity picture size
+        # * this may be removed if we run into performance issues (no on-display scaling will be performed then) todo?
         self.display_size = display_size
 
         # size of collision "box"

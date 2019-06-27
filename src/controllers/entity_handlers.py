@@ -137,9 +137,8 @@ def paint_all(surface):
 
 
 # TEST fixme #
-from src.game_data._complete_sets.complete_player_characters.greg.pc_greg import PlayerCharacterGreg
-PLAYER[0] = PlayerCharacterGreg()
-PLAYER[0].deg = 135
+from src.game_data._complete_sets.complete_player_characters.estera.pc_estera import PlayerCharacterEstera
+PLAYER[0] = PlayerCharacterEstera()
 PLAYER[0].x = 5
 PLAYER[0].y = 5
 print('LOG: Test player loaded successfully.')

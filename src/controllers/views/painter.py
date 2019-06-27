@@ -3,6 +3,7 @@ from src.controllers.views.viewinfo import unit_size as unit
 from src.controllers.views.viewinfo import current_usable_window_space as cws
 from math import sin, cos, pi
 
+
 # helper methods for choosing sprites for characters
 def get_bot_sprite(character):
 
@@ -17,11 +18,9 @@ def get_bot_sprite(character):
 
 def get_top_sprite(character):
 
-    # i = character.abilities[character.ability_chosen].sprite_row_num
-    # j = character.abilities[character.ability_chosen].stage
-    # return character.sprite_set[i][j]
-
-    return character.sprite_set[1][0]  # fixme
+    i = character.abilities[character.ability_chosen].sprite_row_num
+    j = character.abilities[character.ability_chosen].stage
+    return character.sprite_set[i][j]
 
 
 def paint_player(surface, player):
@@ -47,7 +46,7 @@ def paint_player(surface, player):
     
     # rotate based on player's dir
     # ( needs adjustments as it cause image to slide back and forth. Must rotate based on center)
-    angle = - player.deg
+    angle = - player.dir
     pygame_bottom_sprite = pygame.transform.rotate(pygame_bottom_sprite, angle)
     pygame_top_sprite = pygame.transform.rotate(pygame_top_sprite, angle)
 
@@ -60,10 +59,6 @@ def paint_player(surface, player):
     # draws sprites
     surface.blit(pygame_bottom_sprite, origin)
     surface.blit(pygame_top_sprite, origin)
-
-    # TEST fixme
-    player.animate()
-    player.travel_ground(135, 0.01)
 
 
 def paint_monster(surface, monster):

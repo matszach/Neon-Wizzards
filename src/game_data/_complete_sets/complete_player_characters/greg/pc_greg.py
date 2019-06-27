@@ -10,7 +10,7 @@ PHYS_DEF = 2
 HP = 120
 MP = 80
 
-SPEED = 0.06
+SPEED = 0.045
 
 STR = 7
 DEX = 4

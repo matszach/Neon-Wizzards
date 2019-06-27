@@ -8,7 +8,7 @@ class Condition:
     def tick(self, subject):
 
         # TODO check if not expired here ?
-        #  probably unnecessary as player should remove any expired conditions before this is called again
+        #  probably unnecessary as player should remove mixed expired conditions before this is called again
 
         # expire on duration end
         self.duration_left -= 1
