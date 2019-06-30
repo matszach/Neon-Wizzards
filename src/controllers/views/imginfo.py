@@ -46,7 +46,7 @@ CONDITIONS_DEFENCE_BOONS = create_image_table(f'{ICONSETS_PATH}condition_icons{F
 CONDITIONS_DEFENCE_BANES = create_image_table(f'{ICONSETS_PATH}condition_icons{FILE_EXTENSION}', 0, 7, 3, 4, ISIZE)
 CONDITIONS_DAMAGE_OVER_TIME = create_image_table(f'{ICONSETS_PATH}condition_icons{FILE_EXTENSION}', 0, 7, 4, 5, ISIZE)
 
-# estera's abilities
+# estera's skills
 ABILITIES_ESTERA_ROW_1 = create_image_table(f'{ICONSETS_PATH}estera_abilities{FILE_EXTENSION}', 0, 5, 0, 1, ISIZE)
 ABILITIES_ESTERA_ROW_2 = create_image_table(f'{ICONSETS_PATH}estera_abilities{FILE_EXTENSION}', 0, 5, 1, 2, ISIZE)
 ABILITIES_ESTERA_ROW_3 = create_image_table(f'{ICONSETS_PATH}estera_abilities{FILE_EXTENSION}', 0, 5, 2, 3, ISIZE)

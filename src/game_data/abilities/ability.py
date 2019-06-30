@@ -1,6 +1,6 @@
 
 
-# parent class to all abilities
+# parent class to all skills
 class Ability:
 
     # ===== start =====

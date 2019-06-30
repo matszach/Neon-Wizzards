@@ -36,13 +36,18 @@ class Character(Entity, Damageable):
             if b.expired:
                 self.banes.remove(b)
 
-    # ===== abilities =====
+    # ===== skills =====
     def tick_cooldowns(self):
         for a in self.abilities:
             a.tick_cooldown()
 
     def switch_to_ability(self, ability_num):
+
+        # does not follow through with the switch if current ability is mid-use
         if not self.abilities[self.ability_chosen].in_use:
+
+            # does not follow through if an out of bounds ability is requested
+            # todo this might be altered once ability bars are made
             if len(self.abilities) - 1 >= ability_num:
                 self.ability_chosen = ability_num
 
@@ -70,7 +75,7 @@ class Character(Entity, Damageable):
         Entity.__init__(self, sprite_set, display_size, collision_size, animation_timer)
         Damageable.__init__(self, hp, physical_def, fire_def, cold_def, lightning_def, holy_def, shadow_def, acid_def)
 
-        # characters magical energy, fuel for most of character's abilities
+        # characters magical energy, fuel for most of character's skills
         self.max_mp = mp
         self.curr_mp = mp
 
@@ -89,7 +94,7 @@ class Character(Entity, Damageable):
         self.boons = []
         self.banes = []
 
-        # abilities that the character has access to
+        # skills that the character has access to
         self.abilities = []
         self.ability_chosen = 0
 

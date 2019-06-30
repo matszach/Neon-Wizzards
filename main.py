@@ -44,7 +44,7 @@ clock = pygame.time.Clock()
 # ==================================================== TEST
 # fixme #
 # this will, in the future, be called withing the main game loop, on button click etc.
-from src.game_data._complete_sets.complete_player_characters.estera.pc_estera import PlayerCharacterEstera
+from src.game_data.complete_sets.complete_player_characters.estera.pc_estera import PlayerCharacterEstera
 from src.controllers.launchers.level_launcher import launch_level
 launch_level(PlayerCharacterEstera(), 1, 1)
 # ==================================================== TEST
@@ -53,8 +53,9 @@ launch_level(PlayerCharacterEstera(), 1, 1)
 while True:
 
     clock.tick(60)  # 60 fps
+    # a higher value than 60 can be passed also (may be useful to overcome natural fps drop later)
 
-    print(clock.get_fps())  # todo remove me
+    # print(clock.get_fps())  # move display to game screen
 
     # list of events (keyboard / mouse presses)
     for event in pygame.event.get():
