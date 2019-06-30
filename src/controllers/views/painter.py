@@ -25,10 +25,6 @@ def paint_player(surface, player):
 
     u = unit[0]
 
-    # player should always be displayed in the middle of the screen todo
-    x_mod = 0
-    y_mod = 0
-
     # choose player's bottom sprite
     bot_sprite = get_bot_sprite(player)
     top_sprite = get_top_sprite(player)
@@ -47,9 +43,15 @@ def paint_player(surface, player):
     # set origin based on player's location and display size
     q = abs((angle % 90))*pi/180
     off = (sin(q) + cos(q) - 1)*player.display_size
-    origin = (cws[0] + (player.x-player.display_size/2 - off/2) * u,
-              cws[1] + (player.y-player.display_size/2 - off/2) * u)
-    
+
+    # OLD - absolute location
+    # origin = (cws[0] + (player.x-player.display_size/2 - off/2) * u,
+    #           cws[1] + (player.y-player.display_size/2 - off/2) * u)
+
+    # NEW - centered
+    origin = (cws[0] + cws[2]/2 + (- player.display_size / 2 - off / 2) * u,
+              cws[1] + cws[3]/2 + (- player.display_size / 2 - off / 2) * u)
+
     # draws sprites
     surface.blit(bot_sprite, origin)
     surface.blit(top_sprite, origin)
@@ -63,12 +65,9 @@ def paint_entity(surface, entity):
     pass
 
 
-def paint_tile(surface, x, y, tile_id):
+def paint_tile(surface, x, y, tile_id, player_x, player_y):
 
     u = unit[0]
-
-    x_mod = 0
-    y_mod = 0
 
     # ===== root tiles =====
     tile = TILESET_1[tile_id[1]][tile_id[0]]
@@ -78,7 +77,7 @@ def paint_tile(surface, x, y, tile_id):
     tile = pygame.transform.scale(tile, (scale, scale))
 
     # draws tiles
-    origin = (cws[0] + (x-0.5)*u, cws[1] + (y-0.5)*u)
+    origin = (cws[0] + cws[2]/2 + (x-0.5-player_x)*u, cws[1] + cws[3]/2 + (y-0.5-player_y)*u)
     surface.blit(tile, origin)
 
     # ===== corner tiles

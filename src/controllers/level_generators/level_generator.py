@@ -14,9 +14,8 @@ def generate_level(level, difficulty, player):
 
     for i in range(len(li.level_fields)):
         for j in range(len(li.level_fields[0])):
-            if random() > 0.6:
+            if random() > 0.75:
                 li.level_fields[i][j] = 1
-
 
     #  2 generate doors and keys
     #  3 generate monsters, obstacles, areas etc.
