@@ -1,4 +1,5 @@
 from PIL import Image
+import pygame
 import os
 
 ISIZE = 16
@@ -22,8 +23,16 @@ def load_image_set(path):
 
 
 def create_image_table(path, x_min, x_max, y_min, y_max, img_size):
+
     image_set = load_image_set(path)
     image_table = [[get_image_at(image_set, x, y, img_size) for x in range(x_min, x_max)] for y in range(y_min, y_max)]
+
+    # transform to pygame images
+    # * .convert_alpha() visibly increases performance
+    for row in image_table:
+        for i, img in enumerate(row):
+            row[i] = pygame.image.fromstring(img.tobytes(), img.size, img.mode).convert_alpha()
+
     return image_table
 
 
@@ -58,6 +67,10 @@ AREAS_SPRITESETS_PATH = f'{SPRITESETS_PATH}areas{os.sep}'
 
 # monsters
 MONSTERS_SPRITESETS_PATH = f'{SPRITESETS_PATH}monsters{os.sep}'
+
+MONSTER_CYBERZOMBIE = create_image_table(f'{MONSTERS_SPRITESETS_PATH}cyberzombie{FILE_EXTENSION}', 0, 4, 0, 2, SSIZE)
+MONSTER_RATLING = create_image_table(f'{MONSTERS_SPRITESETS_PATH}ratling{FILE_EXTENSION}', 0, 4, 0, 2, SSIZE)
+
 
 # obstacles
 OBSTACLES_SPRITESETS_PATH = f'{SPRITESETS_PATH}obstacles{os.sep}'
@@ -125,3 +138,13 @@ PROJECTILE_ICE_FLAME = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}ice{FIL
 
 # LOG
 print('LOG: Spritesets loaded successfully.')
+
+
+# ========= TILES ==========
+TILESETS_PATH = f'resources{os.sep}images{os.sep}tilesets{os.sep}'
+
+TILESET_1 = create_image_table(f'{TILESETS_PATH}tileset_1{FILE_EXTENSION}', 0, 8, 0, 10, SSIZE)
+
+
+# LOG
+print('LOG: Tilesets loaded successfully.')

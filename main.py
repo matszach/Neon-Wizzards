@@ -2,16 +2,15 @@ import pygame
 import sys
 
 import src.controllers.views.viewinfo as vi
-import src.controllers.entity_handlers as eh
-import src.controllers.tile_handlers as th
-import src.controllers.gui_handlers as gh
 
+# fixme todo remove ?
 # performance config
 # pygame.event.set_allowed([QUIT, KEYDOWN, KEYUP])
 flags = [pygame.RESIZABLE | pygame.DOUBLEBUF]
 # screen.set_alpha(None)
 
 
+# those might be moved somewhere else in the future
 def set_windowed_mode():
     flags[0] = pygame.RESIZABLE | pygame.DOUBLEBUF
     surface[0] = pygame.display.set_mode((0, 0), flags[0])
@@ -28,6 +27,13 @@ surface = [pygame.display.set_mode(
      vi.window_size_in_units[1]*vi.unit_size[0]),
     flags[0])]
 
+# those have to be imported after pygame,display is initialized, because their import prompts imginfo import, which
+# requires pygame.display to be already initiated
+
+import src.controllers.entity_handlers as eh
+import src.controllers.tile_handlers as th
+import src.controllers.gui_handlers as gh
+
 
 # set app name
 pygame.display.set_caption('Neon Wizards')
@@ -35,11 +41,20 @@ pygame.display.set_caption('Neon Wizards')
 # manages tme between screen updates
 clock = pygame.time.Clock()
 
+# ==================================================== TEST
+# fixme #
+# this will, in the future, be called withing the main game loop, on button click etc.
+from src.game_data._complete_sets.complete_player_characters.estera.pc_estera import PlayerCharacterEstera
+from src.controllers.launchers.level_launcher import launch_level
+launch_level(PlayerCharacterEstera(), 1, 1)
+# ==================================================== TEST
 
 # main game loop
 while True:
 
     clock.tick(60)  # 60 fps
+
+    print(clock.get_fps())  # todo remove me
 
     # list of events (keyboard / mouse presses)
     for event in pygame.event.get():
@@ -65,8 +80,10 @@ while True:
     gh.handle_all(surface[0])
 
     # draws usable window space
-    vi.draw_usable(surface[0])
+    # vi.draw_usable(surface[0])
 
     # draws current game state on display
     pygame.display.update()
+
+
 

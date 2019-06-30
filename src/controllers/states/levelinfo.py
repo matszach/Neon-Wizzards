@@ -11,3 +11,4 @@ level_fields = np.zeros((100, 100), dtype=int)
 
 def get_field_at(x, y):
     return level_fields[round(x)][round(y)]
+

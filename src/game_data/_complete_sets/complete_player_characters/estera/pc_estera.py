@@ -1,5 +1,5 @@
 from src.game_data.entities.characters.player.player import PlayerCharacter
-from src.controllers.views.imginfo import PLAYER_ESTERA
+from src.controllers.views.imginfo import PLAYER_ESTERA, MONSTER_CYBERZOMBIE
 
 
 # Estera's default / starting state
@@ -30,6 +30,7 @@ class PlayerCharacterEstera(PlayerCharacter):
                                  strength=STR, dexterity=DEX, intelligence=INT)
 
         # temp todo
+        # starting abilities will be appended here
         from src.game_data.abilities.player_oriented.player_melee_ability import PlayerMeleeAbility
         import src.game_data.abilities.countersinfo as ci
         self.abilities.append(PlayerMeleeAbility(self, frame_counters=ci.MEDIUM_COUNTER))

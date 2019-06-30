@@ -38,9 +38,10 @@ class PlayerCharacter(Character):
             self.character_travel(180)
 
         # ===== turning =====
+        # * assumes player's display location as always in the center of the screen
         loc = pygame.mouse.get_pos()
-        mouse_x_from_center = loc[0] - (cws[0]+cws[2])/2
-        mouse_y_from_center = loc[1] - (cws[1]+cws[3])/2
+        mouse_x_from_center = loc[0] - cws[0] - (cws[2])/2
+        mouse_y_from_center = loc[1] - cws[1] - (cws[3])/2
         angle, radius = cartesian_to_polar(mouse_x_from_center, mouse_y_from_center)
         self.turn(angle)
 

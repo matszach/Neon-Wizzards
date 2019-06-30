@@ -13,8 +13,7 @@ Melee Abilities should:
 class PlayerMeleeAbility(Ability):
 
     def take_effect(self):
-        # todo
-        print("Player's Melee Ability Takes Effect")
+        pass
 
     # constructor
     def __init__(self, user, sweep_range=1, frame_counters=(5, 5, 5, 10), attribute_used=0):

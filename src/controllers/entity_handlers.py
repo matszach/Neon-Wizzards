@@ -2,9 +2,10 @@ from src.controllers.views.painter import paint_entity, paint_monster, paint_pla
 
 """
 holds player at 0th index,
-list used for its immutability (?)
+list used for its immutability 
 """
-PLAYER = [None]
+PLAYER = []
+
 
 """
 active entities in their draw order
@@ -20,18 +21,33 @@ AC_ALLIES = []
 AC_PARTICLES = []
 AC_PROJECTILES = []
 
+
 """
 dormant entities and their "activation" range
 """
 DR_OBSTACLES = []
-MAX_RANGE_OBSTACLES_X = 18
-MAX_RANGE_OBSTACLES_Y = 11
+MAX_RANGE_OBSTACLES_X = 12
+MAX_RANGE_OBSTACLES_Y = 9
 DR_PICKUPS = []
-MAX_RANGE_PICKUPS_X = 18
-MAX_RANGE_PICKUPS_y = 11
+MAX_RANGE_PICKUPS_X = 12
+MAX_RANGE_PICKUPS_y = 9
 DR_MONSTERS = []
-MAX_RANGE_MONSTERS_X = 25
-MAX_RANGE_MONSTERS_Y = 16
+MAX_RANGE_MONSTERS_X = 18
+MAX_RANGE_MONSTERS_Y = 13
+
+
+"""
+
+"""
+PAUSED = [False]
+
+
+def pause():
+    PAUSED[0] = True
+
+
+def unpause():
+    PAUSED[0] = False
 
 
 """
@@ -40,7 +56,9 @@ MAX_RANGE_MONSTERS_Y = 16
 
 
 def reset():
-    pass
+    for elist in [PLAYER, AC_AREAS, AC_OBSTACLES, AC_PICKUPS, AC_CORPSES, AC_MONSTERS, AC_ALLIES, AC_PARTICLES,
+                  AC_PROJECTILES, DR_OBSTACLES, DR_PICKUPS, DR_MONSTERS]:
+        elist.clear()
 
 
 """
@@ -69,11 +87,23 @@ def cull_entity_group(active, dormant, mrange_x, mrange_y):
 
 """
 
+
+def handle_all(surface):
+    if not PAUSED[0]:
+        work_and_paint_all(surface)
+    else:
+        paint_all(surface)
+
+
+"""
+
+"""
+
 CULL_INCREMENT = 120
 cull_timer = [0]
 
 
-def handle_all(surface):
+def work_and_paint_all(surface):
 
     # "under-characters" entities
     for entity_set in [AC_AREAS, AC_OBSTACLES, AC_PICKUPS, AC_CORPSES]:
@@ -92,9 +122,10 @@ def handle_all(surface):
         a.active_work()
         paint_monster(surface, a)
 
-    PLAYER[0].passive_work()
-    PLAYER[0].active_work()
-    paint_player(surface, PLAYER[0])
+    for p in PLAYER:
+        p.passive_work()
+        p.active_work()
+        paint_player(surface, p)
 
     # "over-characters" entities
     for entity_set in [AC_PARTICLES, AC_PROJECTILES]:
@@ -128,17 +159,10 @@ def paint_all(surface):
     for a in AC_ALLIES:
         paint_monster(surface, a)
 
-    paint_player(surface, PLAYER[0])
+    for p in PLAYER:
+        paint_player(surface, p)
 
     # "over-characters" entities
     for entity_set in [AC_PARTICLES, AC_PROJECTILES]:
         for e in entity_set:
             paint_entity(surface, e)
-
-
-# TEST fixme #
-from src.game_data._complete_sets.complete_player_characters.estera.pc_estera import PlayerCharacterEstera
-PLAYER[0] = PlayerCharacterEstera()
-PLAYER[0].x = 5
-PLAYER[0].y = 5
-print('LOG: Test player loaded successfully.')
