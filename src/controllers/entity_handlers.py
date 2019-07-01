@@ -105,11 +105,16 @@ cull_timer = [0]
 
 def work_and_paint_all(surface):
 
+    player_x = PLAYER[0].x
+    player_y = PLAYER[0].y
+
     # "under-characters" entities
     for entity_set in [AC_AREAS, AC_OBSTACLES, AC_PICKUPS, AC_CORPSES]:
         for e in entity_set:
             e.passive_work()
             paint_entity(surface, e)
+            if e.expired:
+                entity_set.remove(e)
 
     # characters
     for m in AC_MONSTERS:
@@ -131,7 +136,9 @@ def work_and_paint_all(surface):
     for entity_set in [AC_PARTICLES, AC_PROJECTILES]:
         for e in entity_set:
             e.passive_work()
-            paint_entity(surface, e)
+            paint_entity(surface, e, player_x, player_y)
+            if e.expired:
+                entity_set.remove(e)
 
     # active/dormant culling
     if cull_timer[0] >= CULL_INCREMENT:

@@ -57,11 +57,15 @@ class EsterasFrostBolt(PlayerSingleProjectileAbility):
 
     def __init__(self, user):
         PlayerSingleProjectileAbility.__init__(self, user=user, icon=ABILITIES_ESTERA_ROW_1[0][1], name=SKILL_NAMES[2],
-                                               sprite_row_num=2, frame_counters=ci.SLOW_COUNTER, cooldown=120,
-                                               mp_cost=3, projectile_class=FrostBoltPrj, accuracy=2, spawn_distance=0.4)
+                                               sprite_row_num=2, frame_counters=ci.FAST_COUNTER, cooldown=30,
+                                               mp_cost=3, projectile_class=FrostBoltPrj, accuracy=5, spawn_distance=0.4)
 
 
 class FrostBoltPrj(SingleHitDamagingProjectile):
+
+    def on_expire(self):
+        pass
+        # todo animation
 
     def calc_damage(self):
         return 8 + self.origin_entity.intelligence * (1 + random())
@@ -69,7 +73,7 @@ class FrostBoltPrj(SingleHitDamagingProjectile):
     def __init__(self, user, travel_direction):
         SingleHitDamagingProjectile.__init__(self, sprite_set=PROJECTILE_ICE_MISSILE, travel_direction=travel_direction,
                                              origin_entity=user, dmg_type=2, display_size=0.8, collision_size=0.4,
-                                             animation_timer=7, velocity=0.15, max_range=7, col_check_interval=5,
+                                             animation_timer=5, velocity=0.12, max_range=7, col_check_interval=2,
                                              col_with_player=False, col_with_monsters=True,
                                              col_with_obstacles=True, col_with_projectiles=True)
 

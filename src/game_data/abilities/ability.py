@@ -5,12 +5,11 @@ class Ability:
 
     # ===== start =====
     def use(self):
-        if not self.in_use and not self.on_cooldown():
-            self.current_animation_counter = 0
-            self.curr_cd = self.max_cd
-            self.stage = 0
-            self.in_use = True
-            self.executed = False
+        self.current_animation_counter = 0
+        self.curr_cd = self.max_cd
+        self.stage = 0
+        self.in_use = True
+        self.executed = False
 
     # ===== lifecycle =====
     def continue_usage(self):

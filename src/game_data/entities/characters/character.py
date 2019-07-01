@@ -37,6 +37,14 @@ class Character(Entity, Damageable):
                 self.banes.remove(b)
 
     # ===== skills =====
+    def pay_mp(self, amt):
+        print(self.curr_mp)
+        if self.curr_mp >= amt:
+            self.curr_mp -= amt
+            return True
+        else:
+            return False
+
     def tick_cooldowns(self):
         for a in self.abilities:
             a.tick_cooldown()
@@ -52,7 +60,10 @@ class Character(Entity, Damageable):
                 self.ability_chosen = ability_num
 
     def use_chosen_ability(self):
-        self.abilities[self.ability_chosen].use()
+        ability = self.abilities[self.ability_chosen]
+        if not ability.in_use and not ability.on_cooldown():
+            if self.pay_mp(ability.mp_cost):
+                ability.use()
 
     def continue_action_in_progress(self):
         self.abilities[self.ability_chosen].continue_usage()
