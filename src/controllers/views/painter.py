@@ -2,7 +2,7 @@ import pygame
 from src.controllers.views.viewinfo import unit_size as unit
 from src.controllers.views.viewinfo import current_usable_window_space as cws
 from src.controllers.views.imginfo import TILESET_1
-from math import sin, cos, pi
+from math import sin, cos, pi, ceil
 
 
 # helper methods for choosing sprites for characters
@@ -19,6 +19,12 @@ def get_top_sprite(character):
     i = character.abilities[character.ability_chosen].sprite_row_num
     j = character.abilities[character.ability_chosen].stage
     return character.sprite_set[i][j]
+
+
+"""
+Is unique as it's position is always in the center of the screen.
+Tiles and other entities are drawn based on player's location.
+"""
 
 
 def paint_player(surface, player):
@@ -73,7 +79,7 @@ def paint_tile(surface, x, y, tile_id, player_x, player_y):
     tile = TILESET_1[tile_id[1]][tile_id[0]]
 
     # scale to unit
-    scale = int(u)
+    scale = ceil(u)
     tile = pygame.transform.scale(tile, (scale, scale))
 
     # draws tiles

@@ -12,7 +12,7 @@ FIRE_DEF = -1
 HP = 70
 MP = 130
 
-SPEED = 0.04
+SPEED = 0.05
 
 STR = 3
 DEX = 5

@@ -5,9 +5,12 @@ class Ability:
 
     # ===== start =====
     def use(self):
-        if not self.in_use:
-            self.reset()
+        if not self.in_use and not self.on_cooldown():
+            self.current_animation_counter = 0
+            self.curr_cd = self.max_cd
+            self.stage = 0
             self.in_use = True
+            self.executed = False
 
     # ===== lifecycle =====
     def continue_usage(self):
@@ -28,7 +31,10 @@ class Ability:
 
             # resets ability on "4"
             if self.stage >= 4:
-                self.reset()
+                self.current_animation_counter = 0
+                self.stage = 0
+                self.in_use = False
+                self.executed = False
 
     # ===== actual take_effect ====
     def take_effect(self):
@@ -42,13 +48,8 @@ class Ability:
     def start_cooldown(self):
         self.curr_cd = self.max_cd
 
-    # ===== reset =====
-    def reset(self):
-        self.current_animation_counter = 0
-        self.curr_cd = 0
-        self.stage = 0
-        self.in_use = False
-        self.executed = False
+    def on_cooldown(self):
+        return self.curr_cd > 0
 
     # constructor
     def __init__(self, user, sprite_row_num=1, frame_counters=(2, 5, 5, 2), cooldown=0, mp_cost=0, hp_cost=0):

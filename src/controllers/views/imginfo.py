@@ -108,8 +108,15 @@ PICKUP_CRUMB_EXP = create_image_table(f'{PICKUPS_SPRITESETS_PATH}crumbs{FILE_EXT
 # player characters
 PLAYER_SPRITESETS_PATH = f'{SPRITESETS_PATH}{os.sep}player_characters{os.sep}'
 
-PLAYER_GREG = create_image_table(f'{PLAYER_SPRITESETS_PATH}greg{FILE_EXTENSION}', 0, 4, 0, 4, SSIZE)
-PLAYER_ESTERA = create_image_table(f'{PLAYER_SPRITESETS_PATH}estera{FILE_EXTENSION}', 0, 4, 0, 4, SSIZE)
+"""
+side silhouette , walk default  , walk left , walk right
+action 1 idle   , usage 1       , usage 2   , usage 3       - basic melee
+action 2 idle   , usage 1       , usage 2   , usage 3       - ranged / any
+action 3 idle   , usage 1       , usage 2   , usage 3       - self / any
+action 4 idle   , usage 1       , usage 2   , usage 3       - channeled / any suitable for near instant / bullet speed
+"""
+PLAYER_GREG = create_image_table(f'{PLAYER_SPRITESETS_PATH}greg{FILE_EXTENSION}', 0, 4, 0, 5, SSIZE)
+PLAYER_ESTERA = create_image_table(f'{PLAYER_SPRITESETS_PATH}estera{FILE_EXTENSION}', 0, 4, 0, 5, SSIZE)
 
 # projectiles
 PROJECTILES_SPRITESETS_PATH = f'{SPRITESETS_PATH}{os.sep}projectiles{os.sep}'

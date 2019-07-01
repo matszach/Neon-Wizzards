@@ -11,6 +11,7 @@ Melee Abilities should:
 
 class MeleeAbility(Ability):
 
+    # damage calculation
     def calc_damage(self):
 
         if self.attribute_used == 0:
@@ -22,6 +23,7 @@ class MeleeAbility(Ability):
 
         return self.base_multiplier * att + self.random_multiplier * random()*att
 
+    # activation
     def take_effect(self):
         pass
 

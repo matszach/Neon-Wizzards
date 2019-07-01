@@ -83,14 +83,9 @@ class Entity:
         # y clipping
         y = y if y != 0 else 0.00001
         yi = round(self.y + y + self.collision_size / 2 * y / abs(y))
-        for xi in range(round(self.x - self.collision_size/2), round(self.x + self.collision_size/2) + 1):
+        for xi in range(round(self.x - self.collision_size / 2), round(self.x + self.collision_size / 2) + 1):
             if get_field_at(xi, yi) in [1, 2]:
-                if y > 0:
-                    # yi - 0.5 = self.y + self.collision_size/2 + new_y (new_y is positive)
-                    new_y = yi - 0.5 - self.y - self.collision_size/2
-                else:
-                    # yi + 0.5 = self.y - self.collision_size/2 + new_y (new_y is negative, or zero)
-                    new_y = yi + 0.5 - self.y + self.collision_size/2
+                new_y = 0
                 break
 
         # x clipping
@@ -98,10 +93,7 @@ class Entity:
         xj = round(self.x + x + self.collision_size / 2 * x / abs(x))
         for yj in range(round(self.y - self.collision_size / 2), round(self.y + self.collision_size / 2) + 1):
             if get_field_at(xj, yj) in [1, 2]:
-                if x > 0:
-                    new_x = xj - 0.5 - self.x - self.collision_size / 2
-                else:
-                    new_x = xj + 0.5 - self.x + self.collision_size / 2
+                new_x = 0
                 break
 
         return new_x, new_y
@@ -116,24 +108,16 @@ class Entity:
         y = y if y != 0 else 0.00001
         yi = round(self.y + y + self.collision_size / 2 * y / abs(y))
         for xi in range(round(self.x - self.collision_size / 2), round(self.x + self.collision_size / 2) + 1):
-            if get_field_at(xi, yi) == 1:
-                if y > 0:
-                    # yi - 0.5 = self.y + self.collision_size/2 + new_y (new_y is positive)
-                    new_y = yi - 0.5 - self.y - self.collision_size / 2
-                else:
-                    # yi + 0.5 = self.y - self.collision_size/2 + new_y (new_y is negative, or zero)
-                    new_y = yi + 0.5 - self.y + self.collision_size / 2
+            if get_field_at(xi, yi) is 1:
+                new_y = 0
                 break
 
         # x clipping
         x = x if x != 0 else 0.00001
         xj = round(self.x + x + self.collision_size / 2 * x / abs(x))
         for yj in range(round(self.y - self.collision_size / 2), round(self.y + self.collision_size / 2) + 1):
-            if get_field_at(xj, yj) == 1:
-                if x > 0:
-                    new_x = xj - 0.5 - self.x - self.collision_size / 2
-                else:
-                    new_x = xj + 0.5 - self.x + self.collision_size / 2
+            if get_field_at(xj, yj) is 1:
+                new_x = 0
                 break
 
         return new_x, new_y
