@@ -1,17 +1,30 @@
 from src.game_data.entities.characters.character import Character
+from util.unit_conversion import cartesian_to_polar
+from src.controllers import entity_handlers as eh
 from random import randint
 
 
 # parent class to all monsters
 class Monster(Character):
 
-    # TODO a lot
+    # ===== lifecycle =====
+    def active_work(self):
+        # temp todo
+        self.walk_directly_to_player()
+
+    # player locating
+    def walk_directly_to_player(self):
+        x_dir = eh.PLAYER[0].x - self.x
+        y_dir = eh.PLAYER[0].y - self.y
+        deg, radius = cartesian_to_polar(x_dir, y_dir)
+        self.character_travel(deg)
+        self.turn(deg)
 
     # constructor
     def __init__(self, sprite_set, display_size=1, collision_size=1, animation_timer=15,
                  hp=100, physical_def=0, fire_def=0, cold_def=0, lightning_def=0,
                  holy_def=0, shadow_def=0, acid_def=0,
-                 mp=100, speed=0.1, strength=5, dexterity=5, intelligence=5, flying=False,
+                 mp=100, speed=0.02, strength=5, dexterity=5, intelligence=5, flying=False,
                  dif_mod=1, pathing_increment=30):
 
         # super constructors

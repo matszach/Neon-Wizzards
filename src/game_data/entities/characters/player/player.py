@@ -1,6 +1,7 @@
 from src.game_data.entities.characters.character import Character
 from src.controllers.views.viewinfo import current_usable_window_space as cws
 from util.unit_conversion import cartesian_to_polar
+from src.controllers.entity_handlers import pause_unpause
 import pygame
 
 
@@ -77,6 +78,12 @@ class PlayerCharacter(Character):
             self.switch_to_ability(10)
         elif keys[pygame.K_EQUALS]:
             self.switch_to_ability(11)
+
+    @staticmethod  # todo rethink if this should be here
+    def misc_controls():
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_p]:
+            pause_unpause()
 
     # reset on finishing a level
     def prepare_for_next_level(self):

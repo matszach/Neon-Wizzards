@@ -63,8 +63,36 @@ def paint_player(surface, player):
     surface.blit(top_sprite, origin)
 
 
-def paint_monster(surface, monster):
-    pass
+def paint_monster(surface, monster, player_x, player_y):
+    
+    u = unit[0]
+
+    # choose player's bottom sprite
+    bot_sprite = get_bot_sprite(monster)
+    top_sprite = get_top_sprite(monster)
+
+    # scale based on monster's display size
+    scale = round(monster.display_size * u)
+    bot_sprite = pygame.transform.scale(bot_sprite, (scale, scale))
+    top_sprite = pygame.transform.scale(top_sprite, (scale, scale))
+
+    # rotate based on monster's dir
+    # ( needs adjustments as it cause image to slide back and forth. Must rotate based on center)
+    angle = - monster.dir
+    bot_sprite = pygame.transform.rotate(bot_sprite, angle)
+    top_sprite = pygame.transform.rotate(top_sprite, angle)
+
+    # set origin based on monster's location and display size
+    q = abs((angle % 90)) * pi / 180
+    off = (sin(q) + cos(q) - 1) * monster.display_size
+
+    # NEW - centered
+    origin = (cws[0] + cws[2] / 2 + (monster.x - monster.display_size / 2 - player_x - off / 2) * u,
+              cws[1] + cws[3] / 2 + (monster.y - monster.display_size / 2 - player_y - off / 2) * u)
+
+    # draws sprites
+    surface.blit(bot_sprite, origin)
+    surface.blit(top_sprite, origin)
 
 
 def paint_entity(surface, entity, player_x, player_y):

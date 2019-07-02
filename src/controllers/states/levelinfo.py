@@ -10,5 +10,10 @@ level_fields = np.zeros((100, 100), dtype=int)
 
 
 def get_field_at(x, y):
-    return level_fields[round(x)][round(y)]
+
+    # out of range fields return 1 as for wall
+    if x < 0 or y < 0 or x >= len(level_fields) or y >= len(level_fields[0]):
+        return 1
+    else:
+        return level_fields[round(x)][round(y)]
 

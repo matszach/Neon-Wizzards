@@ -1,5 +1,7 @@
 from src.game_data.entities.entity import Entity
 from src.game_data.entities.damageable import Damageable
+from src.controllers.states.levelinfo import get_field_at
+from math import sqrt
 
 
 # parent class to all characters (monsters, allies, player characters)
@@ -11,6 +13,8 @@ class Character(Entity, Damageable):
         self.tick_banes()
         self.tick_boons()
         self.abilities[self.ability_chosen].continue_usage()
+        if self.is_dead():
+            self.expire()
 
     def active_work(self):
         pass
@@ -37,13 +41,21 @@ class Character(Entity, Damageable):
                 self.banes.remove(b)
 
     # ===== skills =====
+    def has_mp(self, amt):
+        return self.curr_mp >= amt
+
     def pay_mp(self, amt):
-        print(self.curr_mp)
-        if self.curr_mp >= amt:
-            self.curr_mp -= amt
-            return True
-        else:
-            return False
+        self.curr_mp -= amt
+        if self.curr_mp <= 0:
+            self.curr_mp = 0
+
+    def has_hp(self, amt):
+        return self.curr_hp > amt  # ! not equals, no killing yourself with ability cost
+
+    def pay_hp(self, amt):
+        self.curr_hp -= amt
+        if self.curr_hp <= 0:
+            self.curr_hp = 0
 
     def tick_cooldowns(self):
         for a in self.abilities:
@@ -51,8 +63,13 @@ class Character(Entity, Damageable):
 
     def switch_to_ability(self, ability_num):
 
+        # prevents switching to the same ability for rapid re-use
+        if ability_num == self.ability_chosen:
+            return
+
         # does not follow through with the switch if current ability is mid-use
-        if not self.abilities[self.ability_chosen].in_use:
+        # allows switching during it's final stage
+        if not self.abilities[self.ability_chosen].in_use and not self.abilities[self.ability_chosen].stage == 3:
 
             # does not follow through if an out of bounds ability is requested
             # todo this might be altered once ability bars are made
@@ -62,7 +79,9 @@ class Character(Entity, Damageable):
     def use_chosen_ability(self):
         ability = self.abilities[self.ability_chosen]
         if not ability.in_use and not ability.on_cooldown():
-            if self.pay_mp(ability.mp_cost):
+            if self.has_mp(ability.mp_cost) and self.has_hp(ability.hp_cost):
+                self.pay_mp(ability.mp_cost)
+                self.pay_hp(ability.hp_cost)
                 ability.use()
 
     def continue_action_in_progress(self):
@@ -75,6 +94,33 @@ class Character(Entity, Damageable):
             self.travel_air(direction, self.speed)
         else:
             self.travel_ground(direction, self.speed)
+
+    # ===== misc =====
+    # returns True if the character has a direct line of sight of the specified point on the map
+    def sees_location(self, x_targ, y_targ, max_distance):
+
+        x_range = self.x - x_targ
+        y_range = self.y - y_targ
+
+        # if out of range - no need to check visibility
+        if sqrt(x_range**2 + y_range**2) > max_distance:
+            return False
+
+        if x_range > y_range:
+            x_range = round(x_range)
+            for x in range(x_range):
+                y = round(x / x_range * y_range)
+                if get_field_at(x, y) == 1:
+                    return False
+        else:
+            y_range = round(y_range)
+            for y in range(y_range):
+                x = round(y / y_range * x_range)
+                if get_field_at(x, y) == 1:
+                    return False
+
+        # otherwise the location is visible
+        return True
 
     # constructor
     def __init__(self, sprite_set, display_size=1, collision_size=1, animation_timer=30,
