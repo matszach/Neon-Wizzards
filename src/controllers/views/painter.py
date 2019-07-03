@@ -159,6 +159,3 @@ def paint_tile(surface, x, y, tile_id, player_x, player_y):
         tile = pygame.transform.scale(tile, (scale, scale))
         surface.blit(tile, origin)
 
-
-def paint_button(surface, button):
-    pass

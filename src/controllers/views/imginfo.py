@@ -8,8 +8,10 @@ BSSIZE = 64
 BORDER_WIDTH = 1
 
 FILE_EXTENSION = '.png'
+SEP = os.sep
 
 
+# ===== sprite sets / tile sets / icons =====
 def get_image_at(image_set, x, y, img_size):
     x = x * (img_size + BORDER_WIDTH)
     y = y * (img_size + BORDER_WIDTH)
@@ -18,7 +20,7 @@ def get_image_at(image_set, x, y, img_size):
 
 
 def load_image_set(path):
-    abs_path = f'{os.path.normpath(os.getcwd() + os.sep + os.pardir)}{os.sep}roll-initiative{os.sep}{path}'
+    abs_path = f'{os.path.normpath(os.getcwd() + SEP + os.pardir)}{SEP}roll-initiative{SEP}{path}'
     return Image.open(abs_path)
 
 
@@ -36,8 +38,20 @@ def create_image_table(path, x_min, x_max, y_min, y_max, img_size):
     return image_table
 
 
+# ===== gui / decorators =====
+def crop_image(image_set, x_s=0, y_s=0, x_e=0, y_e=0):
+    crop_area = (x_s, y_s, x_e, y_e)
+    return image_set.crop(crop_area)
+
+
+def get_element_image(path, x_s=0, y_s=0, x_e=0, y_e=0):
+    image_set = load_image_set(path)
+    img = crop_image(image_set, x_s, y_s, x_e, y_e)
+    return pygame.image.fromstring(img.tobytes(), img.size, img.mode).convert_alpha()
+
+
 # ========= ICONS ==========
-ICONSETS_PATH = f'resources{os.sep}images{os.sep}iconsets{os.sep}'
+ICONSETS_PATH = f'resources{SEP}images{SEP}iconsets{SEP}'
 
 # conditions
 CONDITIONS_ATTRIBUTE_BOONS = create_image_table(f'{ICONSETS_PATH}condition_icons{FILE_EXTENSION}', 0, 7, 0, 1, ISIZE)
@@ -57,23 +71,23 @@ ABILITIES_ESTERA_ROW_5 = create_image_table(f'{ICONSETS_PATH}estera_abilities{FI
 print('LOG: Iconsets loaded successfully.')
 
 # ========= SPRITES ==========
-SPRITESETS_PATH = f'resources{os.sep}images{os.sep}spritesets{os.sep}'
+SPRITESETS_PATH = f'resources{SEP}images{SEP}spritesets{SEP}'
 
 # allies
-ALLIES_SPRITESETS_PATH = f'{SPRITESETS_PATH}allies{os.sep}'
+ALLIES_SPRITESETS_PATH = f'{SPRITESETS_PATH}allies{SEP}'
 
 # areas
-AREAS_SPRITESETS_PATH = f'{SPRITESETS_PATH}areas{os.sep}'
+AREAS_SPRITESETS_PATH = f'{SPRITESETS_PATH}areas{SEP}'
 
 # monsters
-MONSTERS_SPRITESETS_PATH = f'{SPRITESETS_PATH}monsters{os.sep}'
+MONSTERS_SPRITESETS_PATH = f'{SPRITESETS_PATH}monsters{SEP}'
 
 MONSTER_CYBERZOMBIE = create_image_table(f'{MONSTERS_SPRITESETS_PATH}cyberzombie{FILE_EXTENSION}', 0, 4, 0, 2, SSIZE)
 MONSTER_RATLING = create_image_table(f'{MONSTERS_SPRITESETS_PATH}ratling{FILE_EXTENSION}', 0, 4, 0, 2, SSIZE)
 
 
 # obstacles
-OBSTACLES_SPRITESETS_PATH = f'{SPRITESETS_PATH}obstacles{os.sep}'
+OBSTACLES_SPRITESETS_PATH = f'{SPRITESETS_PATH}obstacles{SEP}'
 
 OBSTACLE_DOOR_GREEN = create_image_table(f'{OBSTACLES_SPRITESETS_PATH}doors{FILE_EXTENSION}', 0, 4, 0, 1, SSIZE)
 OBSTACLE_DOOR_RED = create_image_table(f'{OBSTACLES_SPRITESETS_PATH}doors{FILE_EXTENSION}', 0, 4, 1, 2, SSIZE)
@@ -91,10 +105,17 @@ OBSTACLE_CRATE_1 = create_image_table(f'{OBSTACLES_SPRITESETS_PATH}containers{FI
 OBSTACLE_CRATE_2 = create_image_table(f'{OBSTACLES_SPRITESETS_PATH}containers{FILE_EXTENSION}', 0, 4, 3, 4, SSIZE)
 
 # particles
-PARTICLES_SPRITESETS_PATH = f'{SPRITESETS_PATH}{os.sep}particles{os.sep}'
+PARTICLES_SPRITESETS_PATH = f'{SPRITESETS_PATH}{SEP}particles{SEP}'
+
+PARTICLE_DMG_GRAY = create_image_table(f'{PARTICLES_SPRITESETS_PATH}dmgflash{FILE_EXTENSION}', 0, 4, 0, 1, SSIZE)
+PARTICLE_DMG_RED = create_image_table(f'{PARTICLES_SPRITESETS_PATH}dmgflash{FILE_EXTENSION}', 0, 4, 1, 2, SSIZE)
+PARTICLE_DMG_YELLOW = create_image_table(f'{PARTICLES_SPRITESETS_PATH}dmgflash{FILE_EXTENSION}', 0, 4, 2, 3, SSIZE)
+PARTICLE_DMG_GREEN = create_image_table(f'{PARTICLES_SPRITESETS_PATH}dmgflash{FILE_EXTENSION}', 0, 4, 3, 4, SSIZE)
+PARTICLE_DMG_CYAN = create_image_table(f'{PARTICLES_SPRITESETS_PATH}dmgflash{FILE_EXTENSION}', 0, 4, 4, 5, SSIZE)
+PARTICLE_DMG_DBLUE = create_image_table(f'{PARTICLES_SPRITESETS_PATH}dmgflash{FILE_EXTENSION}', 0, 4, 5, 6, SSIZE)
 
 # pickups
-PICKUPS_SPRITESETS_PATH = f'{SPRITESETS_PATH}{os.sep}pickups{os.sep}'
+PICKUPS_SPRITESETS_PATH = f'{SPRITESETS_PATH}{SEP}pickups{SEP}'
 
 PICKUP_KEY_GREEN = create_image_table(f'{PICKUPS_SPRITESETS_PATH}keys{FILE_EXTENSION}', 0, 4, 0, 1, SSIZE)
 PICKUP_KEY_RED = create_image_table(f'{PICKUPS_SPRITESETS_PATH}keys{FILE_EXTENSION}', 0, 4, 1, 2, SSIZE)
@@ -106,7 +127,7 @@ PICKUP_CRUMB_MP = create_image_table(f'{PICKUPS_SPRITESETS_PATH}crumbs{FILE_EXTE
 PICKUP_CRUMB_EXP = create_image_table(f'{PICKUPS_SPRITESETS_PATH}crumbs{FILE_EXTENSION}', 0, 4, 2, 3, SSIZE)
 
 # player characters
-PLAYER_SPRITESETS_PATH = f'{SPRITESETS_PATH}{os.sep}player_characters{os.sep}'
+PLAYER_SPRITESETS_PATH = f'{SPRITESETS_PATH}{SEP}player_characters{SEP}'
 
 """
 side silhouette , walk default  , walk left , walk right
@@ -119,7 +140,7 @@ PLAYER_GREG = create_image_table(f'{PLAYER_SPRITESETS_PATH}greg{FILE_EXTENSION}'
 PLAYER_ESTERA = create_image_table(f'{PLAYER_SPRITESETS_PATH}estera{FILE_EXTENSION}', 0, 4, 0, 5, SSIZE)
 
 # projectiles
-PROJECTILES_SPRITESETS_PATH = f'{SPRITESETS_PATH}{os.sep}projectiles{os.sep}'
+PROJECTILES_SPRITESETS_PATH = f'{SPRITESETS_PATH}{SEP}projectiles{SEP}'
 
 PROJECTILE_BULLET_GRAY = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}bullet{FILE_EXTENSION}', 0, 4, 0, 1, SSIZE)
 PROJECTILE_BULLET_RED = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}bullet{FILE_EXTENSION}', 0, 4, 1, 2, SSIZE)
@@ -148,10 +169,24 @@ print('LOG: Spritesets loaded successfully.')
 
 
 # ========= TILES ==========
-TILESETS_PATH = f'resources{os.sep}images{os.sep}tilesets{os.sep}'
+TILESETS_PATH = f'resources{SEP}images{SEP}tilesets{SEP}'
 
 TILESET_1 = create_image_table(f'{TILESETS_PATH}tileset_1{FILE_EXTENSION}', 0, 8, 0, 10, SSIZE)
 
 
 # LOG
 print('LOG: Tilesets loaded successfully.')
+
+
+# ========= GUI ==========
+GUI_PATH = f'resources{SEP}images{SEP}gui_elements{SEP}'
+
+# buttons
+BUTTONS_PATH = f'{GUI_PATH}buttons{SEP}'
+
+MENU_BUTTON_ON = get_element_image(f'{BUTTONS_PATH}menu_button{FILE_EXTENSION}', 0, 0, 196, 32)
+MENU_BUTTON_OFF = get_element_image(f'{BUTTONS_PATH}menu_button{FILE_EXTENSION}',  198, 0, 385, 32)
+
+
+# LOG
+print('LOG: GUI graphics loaded successfully.')

@@ -1,4 +1,4 @@
-from src.controllers.views.painter import paint_button
+
 
 active_buttons = []
 
@@ -10,4 +10,3 @@ def reset():
 def handle_all(surface):
     for button in active_buttons:
         button.listen()
-        paint_button(surface, button)

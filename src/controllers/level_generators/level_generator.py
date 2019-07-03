@@ -31,3 +31,4 @@ def generate_level(level, difficulty, player):
         AC_MONSTERS.append(z)
 
     #  4 place player
+    player.move_to(2, 2)
