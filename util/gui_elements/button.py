@@ -8,8 +8,12 @@ import pygame
 class Button(GuiElement):
 
     def listen(self):
-        if self.is_mouse_down() and self.is_mouse_on():
-            self.action()
+        if self.is_mouse_on():
+            if self.is_mouse_down():
+                self.activated = True
+            elif self.activated:
+                self.action()
+                self.activated = False
 
     def is_mouse_on(self):
         u = unit_size[0]
@@ -61,5 +65,8 @@ class Button(GuiElement):
 
         # button's on-click action
         self.action = on_action
+
+        # marks button as activated
+        self.activated = False
 
 
