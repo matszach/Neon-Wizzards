@@ -1,6 +1,8 @@
 from util.gui_elements.gui_element import GuiElement
 from src.controllers.views.viewinfo import unit_size
+from src.controllers.views.viewinfo import current_usable_window_space as cws
 from pygame import mouse
+import pygame
 
 
 class Button(GuiElement):
@@ -11,8 +13,10 @@ class Button(GuiElement):
 
     def is_mouse_on(self):
         u = unit_size[0]
+        x = cws[0]/u + self.x
+        y = cws[1]/u + self.y
         pos_x, pos_y = mouse.get_pos()
-        return self.x < pos_x/u < self.x + self.width and self.y < pos_y/u < self.y + self.height
+        return x < pos_x/u < x + self.width and y < pos_y/u < y + self.height
 
     @staticmethod
     def is_mouse_down():
@@ -21,16 +25,29 @@ class Button(GuiElement):
     def draw_self(self, surface):
 
         u = unit_size[0]
+        x_off = cws[0]
+        y_off = cws[1]
 
+        x = self.x * u + x_off
+        y = self.y * u + y_off
+        w = self.width * u
+        h = self.height * u
+
+        # TODO temp (will use images)
         if self.is_mouse_on():
-            # draw highlighted
-            pass
+            pygame.draw.rect(surface, (0, 100, 0), (x, y, w, h))
         else:
-            # draw un-highlighted
-            pass
+            pygame.draw.rect(surface, (0, 200, 0), (x, y, w, h))
+
+        # render text, centered around the center of the button
+        font = pygame.font.Font('freesansbold.ttf', round(u/4))
+        txt_surf = font.render(self.text, True, (0, 0, 0))
+        txt_rect = txt_surf.get_rect()
+        txt_rect.center = ((x + w / 2), (y + h / 2))
+        surface.blit(txt_surf, txt_rect)
 
     # constructor
-    def __init__(self, x=0, y=0, width=6, height=1, text='Button', on_action=lambda: None):
+    def __init__(self, x=0, y=0, width=3, height=0.5, text='Button', on_action=lambda: None):
 
         # super constructor
         GuiElement.__init__(self, x, y)

@@ -67,14 +67,16 @@ class Character(Entity, Damageable):
         if ability_num == self.ability_chosen:
             return
 
-        # does not follow through with the switch if current ability is mid-use
-        # allows switching during it's final stage
-        if not self.abilities[self.ability_chosen].in_use and not self.abilities[self.ability_chosen].stage == 3:
+        # does not follow through if an out of bounds ability is requested
+        # todo this might be altered once ability bars are made
+        if len(self.abilities) - 1 >= ability_num:
 
-            # does not follow through if an out of bounds ability is requested
-            # todo this might be altered once ability bars are made
-            if len(self.abilities) - 1 >= ability_num:
-                self.ability_chosen = ability_num
+            # resets any any ability that has been switched out mid-use ( TODO THIS MIGHT ET MOVED TO ABILITY CLASS)
+            self.abilities[self.ability_chosen].stage = 0
+            self.abilities[self.ability_chosen].current_animation_counter = 0
+            self.abilities[self.ability_chosen].in_use = False
+
+            self.ability_chosen = ability_num
 
     def use_chosen_ability(self):
         ability = self.abilities[self.ability_chosen]

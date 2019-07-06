@@ -1,25 +1,8 @@
 import pygame
 import sys
-
 import src.controllers.views.viewinfo as vi
 
-# fixme todo remove ?
-# performance config
-# pygame.event.set_allowed([QUIT, KEYDOWN, KEYUP])
 flags = [pygame.RESIZABLE | pygame.DOUBLEBUF]
-# screen.set_alpha(None)
-
-
-# those might be moved somewhere else in the future
-def set_windowed_mode():
-    flags[0] = pygame.RESIZABLE | pygame.DOUBLEBUF
-    surface[0] = pygame.display.set_mode((0, 0), flags[0])
-
-
-def set_full_screen_mode():
-    flags[0] = pygame.FULLSCREEN | pygame.DOUBLEBUF
-    surface[0] = pygame.display.set_mode((0, 0), flags[0])
-
 
 # main game surface
 surface = [pygame.display.set_mode(
@@ -27,13 +10,14 @@ surface = [pygame.display.set_mode(
      vi.window_size_in_units[1]*vi.unit_size[0]),
     flags[0])]
 
+# initiates font, otherwise no text could be displayed
+pygame.font.init()
+
 # those have to be imported after pygame,display is initialized, because their import prompts imginfo import, which
 # requires pygame.display to be already initiated
-
 import src.controllers.entity_handlers as eh
 import src.controllers.tile_handlers as th
 import src.controllers.gui_handlers as gh
-
 
 # set app name
 pygame.display.set_caption('Neon Wizards')
@@ -41,13 +25,8 @@ pygame.display.set_caption('Neon Wizards')
 # manages tme between screen updates
 clock = pygame.time.Clock()
 
-# ==================================================== TEST
-# fixme #
-# this will, in the future, be called withing the main game loop, on button click etc.
-from src.game_data.complete_sets.complete_player_characters.estera.pc_estera import PlayerCharacterEstera
-from src.controllers.launchers.level_launcher import launch_level
-launch_level(PlayerCharacterEstera(), 1, 1)
-# ==================================================== TEST
+from src.controllers.launchers.main_menu_launcher import launch_main_menu
+launch_main_menu()
 
 # main game loop
 while True:

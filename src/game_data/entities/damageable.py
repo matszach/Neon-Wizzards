@@ -27,6 +27,7 @@ class Damageable:
         # sprite type (color) chosen based on damage type
         particle_spriteset = DMG_SPRITES[dmg_type]
 
+        # TODO damage flash projectile superclass, damage numbers as particle here
         for i in range(nof_particles):
             p = Particle(particle_spriteset, random() * 360, velocity=0.05, duration=30)
             p.move_to(x, y)

@@ -32,3 +32,6 @@ def generate_level(level, difficulty, player):
 
     #  4 place player
     player.move_to(2, 2)
+
+
+

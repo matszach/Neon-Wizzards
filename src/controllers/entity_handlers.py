@@ -39,12 +39,12 @@ MAX_RANGE_MONSTERS_Y = 13
 """
 
 """
-PAUSED = [False]
+paused = [False]
 
 
 # todo - rework this, implement delay on pause-unpause
 def pause_unpause():
-    PAUSED[0] = not PAUSED[0]
+    paused[0] = not paused[0]
 
 
 """
@@ -61,6 +61,16 @@ def reset():
 """
 
 """
+
+enabled = [False]
+
+
+def disable():
+    enabled[0] = False
+
+
+def enable():
+    enabled[0] = True
 
 
 def adjust_active():
@@ -86,7 +96,7 @@ def cull_entity_group(active, dormant, mrange_x, mrange_y):
 
 
 def handle_all(surface):
-    if not PAUSED[0]:
+    if not paused[0]:
         work_and_paint_all(surface)
     else:
         paint_all(surface)
@@ -101,6 +111,10 @@ cull_timer = [0]
 
 
 def work_and_paint_all(surface):
+
+    # drop if not enabled
+    if not enabled[0]:
+        return
 
     # used for entity and tile offset against player's location
     player_x = PLAYER[0].x
@@ -159,6 +173,10 @@ def work_and_paint_all(surface):
 
 
 def paint_all(surface):
+
+    # drop if not enabled
+    if not enabled[0]:
+        return
 
     # used for entity and tile offset against player's location
     player_x = PLAYER[0].x

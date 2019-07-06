@@ -12,6 +12,10 @@ def launch_level(player_character, level, difficulty):
     th.reset()
     gh.reset()
 
+    # enables tile handlers
+    eh.enable()
+    th.enable()
+
     # set passed character as active player character
     eh.PLAYER = [player_character]
 
@@ -22,5 +26,6 @@ def launch_level(player_character, level, difficulty):
     translate_to_tile_ids()
 
     # builds user in-game interface
+    # TODO
 
 
