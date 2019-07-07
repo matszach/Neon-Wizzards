@@ -5,6 +5,7 @@ from pygame import mouse
 from src.controllers.views.imginfo \
     import MENU_WIDE_BUTTON_OFF, MENU_WIDE_BUTTON_ON, MENU_NARROW_BUTTON_OFF, MENU_NARROW_BUTTON_ON
 import pygame
+from os import sep as SEP
 
 
 class Button(GuiElement):
@@ -52,7 +53,8 @@ class Button(GuiElement):
         surface.blit(sprite, (x, y, w, h))
 
         # render text, centered around the center of the button
-        font = pygame.font.Font('freesansbold.ttf', font_size)
+        # font load might be replaced / moved
+        font = pygame.font.Font(f'resources{SEP}fonts{SEP}menu_font.ttf', font_size)
         txt_surf = font.render(self.text, True, (0, 0, 0))
         txt_rect = txt_surf.get_rect()
 

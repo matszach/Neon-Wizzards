@@ -67,5 +67,3 @@ while True:
     # draws current game state on display
     pygame.display.update()
 
-
-
