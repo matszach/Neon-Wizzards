@@ -9,10 +9,10 @@ class Monster(Character):
 
     # ===== lifecycle =====
     def active_work(self):
-        # temp todo
+        # this should be overridden in individual monster classes
         self.walk_directly_to_player()
 
-    # player locating
+    # ===== player locating =====
     def walk_directly_to_player(self):
         x_dir = eh.PLAYER[0].x - self.x
         y_dir = eh.PLAYER[0].y - self.y
@@ -33,16 +33,12 @@ class Monster(Character):
                            holy_def, shadow_def, acid_def,
                            mp, speed, strength, dexterity, intelligence, flying)
 
-        # difficulty modifier, alters hp (todo and maybe more ?)
-        # of the monster attributes
-        # 0.5 - trivial, 0.75 - easy, 1.00 - normal, 1.25 - hard, 1.5 - insane (?)
-        self.dif_mod = dif_mod
-
         # how often the monster checks for path
         self.max_pathing_increment = pathing_increment
         self.curr_pathing_increment = randint(0, pathing_increment)
 
         # current direction of movement (possibly ignored when in direct sight of the player)
+        # TODO might not be needed
         self.path_dir = 0
 
         # not alerted monsters skip active_work() even if they are in AC_MONSTERS list

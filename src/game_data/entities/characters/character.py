@@ -1,6 +1,8 @@
 from src.game_data.entities.entity import Entity
 from src.game_data.entities.damageable import Damageable
 from src.controllers.states.levelinfo import get_field_at
+import src.controllers.entity_handlers as eh
+from util.unit_conversion import cartesian_to_polar
 from math import sqrt
 
 
@@ -12,12 +14,28 @@ class Character(Entity, Damageable):
         self.tick_cooldowns()
         self.tick_banes()
         self.tick_boons()
+        self.repel_characters()
         self.abilities[self.ability_chosen].continue_usage()
         if self.is_dead():
             self.expire()
 
     def active_work(self):
         pass
+
+    def repel_characters(self):
+
+        # for each active character
+        for e in eh.AC_MONSTERS + eh.AC_ALLIES + eh.PLAYER:
+
+            # drop for self and drop if no collision detected
+            if e is not self and self.check_collision(e):
+
+                # repel colliding characters from each other
+                x = self.x - e.x
+                y = self.y - e.y
+                direction = cartesian_to_polar(x, y)[0]
+                self.character_travel_no_animation(direction)
+                e.character_travel_no_animation(-direction)
 
     # ===== conditions =====
     def apply_boon(self, condition):
@@ -92,6 +110,12 @@ class Character(Entity, Damageable):
     # ===== travel =====
     def character_travel(self, direction):
         self.animate()
+        if self.flying:
+            self.travel_air(direction, self.speed)
+        else:
+            self.travel_ground(direction, self.speed)
+
+    def character_travel_no_animation(self, direction):
         if self.flying:
             self.travel_air(direction, self.speed)
         else:
