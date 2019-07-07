@@ -15,16 +15,19 @@ pygame.font.init()
 
 # those have to be imported after pygame,display is initialized, because their import prompts imginfo import, which
 # requires pygame.display to be already initiated
+from src.controllers.views.imginfo import GAME_ICON
 import src.controllers.entity_handlers as eh
 import src.controllers.tile_handlers as th
 import src.controllers.gui_handlers as gh
 
 # set app name
 pygame.display.set_caption('Neon Wizards')
+pygame.display.set_icon(GAME_ICON)
 
 # manages tme between screen updates
 clock = pygame.time.Clock()
 
+# initial view launcher
 from src.controllers.launchers.main_menu_launcher import launch_main_menu
 launch_main_menu()
 
@@ -33,8 +36,6 @@ while True:
 
     clock.tick(60)  # 60 fps
     # a higher value than 60 can be passed also (may be useful to overcome natural fps drop later)
-
-    # print(clock.get_fps())  # move display to game screen
 
     # list of events (keyboard / mouse presses)
     for event in pygame.event.get():
@@ -61,6 +62,7 @@ while True:
 
     # draws usable window space
     # vi.draw_usable(surface[0])
+    # print(clock.get_fps())  # move display to game screen
 
     # draws current game state on display
     pygame.display.update()

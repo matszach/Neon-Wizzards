@@ -2,6 +2,8 @@ from util.gui_elements.gui_element import GuiElement
 from src.controllers.views.viewinfo import unit_size
 from src.controllers.views.viewinfo import current_usable_window_space as cws
 from pygame import mouse
+from src.controllers.views.imginfo \
+    import MENU_WIDE_BUTTON_OFF, MENU_WIDE_BUTTON_ON, MENU_NARROW_BUTTON_OFF, MENU_NARROW_BUTTON_ON
 import pygame
 
 
@@ -37,24 +39,37 @@ class Button(GuiElement):
         w = self.width * u
         h = self.height * u
 
-        # TODO temp (will use images)
+        scale_x = round(w)
+        scale_y = round(h)
+
         if self.is_mouse_on():
-            pygame.draw.rect(surface, (0, 100, 0), (x, y, w, h))
+            sprite = pygame.transform.scale(self.img_on, (scale_x, scale_y))
+            font_size = round(u / 2.8)
         else:
-            pygame.draw.rect(surface, (0, 200, 0), (x, y, w, h))
+            sprite = pygame.transform.scale(self.img_off, (scale_x, scale_y))
+            font_size = round(u / 3.2)
+
+        surface.blit(sprite, (x, y, w, h))
 
         # render text, centered around the center of the button
-        font = pygame.font.Font('freesansbold.ttf', round(u/4))
+        font = pygame.font.Font('freesansbold.ttf', font_size)
         txt_surf = font.render(self.text, True, (0, 0, 0))
         txt_rect = txt_surf.get_rect()
+
+        # center text rect in the middle of the button
         txt_rect.center = ((x + w / 2), (y + h / 2))
         surface.blit(txt_surf, txt_rect)
 
     # constructor
-    def __init__(self, x=0, y=0, width=3, height=0.5, text='Button', on_action=lambda: None):
+    def __init__(self, img_on=MENU_WIDE_BUTTON_ON, img_off=MENU_WIDE_BUTTON_OFF,
+                 x=0, y=0, width=4, height=1, text='Button', on_action=lambda: None):
 
         # super constructor
         GuiElement.__init__(self, x, y)
+
+        # images
+        self.img_on = img_on
+        self.img_off = img_off
 
         # button's dimensions
         self.width = width
@@ -70,3 +85,13 @@ class Button(GuiElement):
         self.activated = False
 
 
+class WideButton(Button):
+
+    def __init__(self, x=0, y=0, text='Button', on_action=lambda: None):
+        Button.__init__(self, MENU_WIDE_BUTTON_ON, MENU_WIDE_BUTTON_OFF, x, y, 4, 1, text, on_action)
+
+
+class NarrowButton(Button):
+
+    def __init__(self, x=0, y=0, text='Button', on_action=lambda: None):
+        Button.__init__(self, MENU_NARROW_BUTTON_ON, MENU_NARROW_BUTTON_OFF, x, y, 2, 1, text, on_action)

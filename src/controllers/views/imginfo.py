@@ -51,6 +51,8 @@ def get_element_image(path, x_s=0, y_s=0, x_e=0, y_e=0):
 
 
 # ========= ICONS ==========
+GAME_ICON = get_element_image(f'resources{SEP}images{SEP}icon{FILE_EXTENSION}', 0, 0, 32, 32)
+
 ICONSETS_PATH = f'resources{SEP}images{SEP}iconsets{SEP}'
 
 # conditions
@@ -181,11 +183,18 @@ print('LOG: Tilesets loaded successfully.')
 # ========= GUI ==========
 GUI_PATH = f'resources{SEP}images{SEP}gui_elements{SEP}'
 
-# buttons
-BUTTONS_PATH = f'{GUI_PATH}buttons{SEP}'
+MENU_LOGO = get_element_image(f'{GUI_PATH}logo{FILE_EXTENSION}',
+                              0, 0, 5*SSIZE, SSIZE)
 
-MENU_BUTTON_ON = get_element_image(f'{BUTTONS_PATH}menu_button{FILE_EXTENSION}', 0, 0, 196, 32)
-MENU_BUTTON_OFF = get_element_image(f'{BUTTONS_PATH}menu_button{FILE_EXTENSION}',  198, 0, 385, 32)
+MENU_WIDE_BUTTON_OFF = get_element_image(f'{GUI_PATH}wide_button{FILE_EXTENSION}',
+                                         0, 0, 4*SSIZE, SSIZE)
+MENU_WIDE_BUTTON_ON = get_element_image(f'{GUI_PATH}wide_button{FILE_EXTENSION}',
+                                        4*SSIZE + BORDER_WIDTH, 0, 8*SSIZE + BORDER_WIDTH, SSIZE)
+
+MENU_NARROW_BUTTON_OFF = get_element_image(f'{GUI_PATH}narrow_button{FILE_EXTENSION}',
+                                           0, 0, 2*SSIZE, SSIZE)
+MENU_NARROW_BUTTON_ON = get_element_image(f'{GUI_PATH}narrow_button{FILE_EXTENSION}',
+                                          2*SSIZE + BORDER_WIDTH, 0, 4*SSIZE + BORDER_WIDTH, SSIZE)
 
 
 # LOG

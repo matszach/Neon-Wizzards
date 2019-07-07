@@ -17,3 +17,4 @@ def handle_all(surface):
 
     for decor in active_decorators:
         decor.draw_self(surface)
+        decor.animate()
