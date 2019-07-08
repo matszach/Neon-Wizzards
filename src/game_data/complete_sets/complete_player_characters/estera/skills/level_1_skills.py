@@ -66,7 +66,7 @@ class FrostBoltPrj(SingleHitDamagingProjectile):
 
     def on_expire(self):
         pass
-        # todo animation
+        # todo animation (?)
 
     def calc_damage(self):
         return 8 + self.origin_entity.intelligence * (1 + 1 * random())
@@ -103,7 +103,7 @@ class ShardPrj(SingleHitDamagingProjectile):
 
     def on_expire(self):
         pass
-        # todo animation
+        # todo animation (?)
 
     def calc_damage(self):
         return 5 + self.origin_entity.intelligence * (0.5 + 0.8 * random())
