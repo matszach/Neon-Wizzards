@@ -55,7 +55,6 @@ class Entity:
         self.move(x, y)
 
     def travel_unchecked(self, direction, distance):
-        self.dir = direction
         x, y = polar_to_cartesian(direction, distance)
         self.move(x, y)
 

@@ -11,7 +11,7 @@ class Particle(Entity):
         self.animate()
 
         # travel
-        self.travel_unchecked(self.dir, self.v)
+        self.travel_unchecked(self.travel_direction, self.v)
 
         # expire on end of duration
         self.duration_left -= 1
@@ -25,7 +25,10 @@ class Particle(Entity):
         # super constructor
         Entity.__init__(self, sprite_set, display_size, collision_size, animation_timer)
 
-        # direction of particles's travel, overrides Entity's "dir" as they serve the same purpose here
+        # direction of particles's travel
+        self.travel_direction = travel_direction
+
+        # rotation direction
         self.dir = travel_direction
 
         # distance in units that the projectile travels every frame

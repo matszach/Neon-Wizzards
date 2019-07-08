@@ -1,18 +1,7 @@
-from src.game_data.entities.particles.particle import Particle
-from src.controllers.views import imginfo as ig
+from src.game_data.entities.particles.damage_flash import DamageFlash
 from random import random
 from src.controllers.entity_handlers import AC_PARTICLES
 from math import floor
-
-DMG_SPRITES = {
-    0: ig.PARTICLE_DMG_GRAY,
-    1: ig.PARTICLE_DMG_RED,
-    2: ig.PARTICLE_DMG_CYAN,
-    3: ig.PARTICLE_DMG_DBLUE,
-    4: ig.PARTICLE_DMG_YELLOW,
-    5: ig.PARTICLE_DMG_DBLUE,
-    6: ig.PARTICLE_DMG_GREEN
-}
 
 
 # parent class to all entities that can be damaged (player, monsters, breakable obstacles)
@@ -24,12 +13,9 @@ class Damageable:
         # number of particles based on amount of damage taken
         nof_particles = 1 + floor(dmg/5)
 
-        # sprite type (color) chosen based on damage type
-        particle_spriteset = DMG_SPRITES[dmg_type]
-
         # TODO damage flash projectile superclass, damage numbers as particle here
         for i in range(nof_particles):
-            p = Particle(particle_spriteset, random() * 360, velocity=0.05, duration=30)
+            p = DamageFlash(dmg_type, random() * 360)
             p.move_to(x, y)
             AC_PARTICLES.append(p)
 

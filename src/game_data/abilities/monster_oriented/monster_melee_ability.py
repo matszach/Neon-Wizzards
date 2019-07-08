@@ -1,6 +1,6 @@
 from src.game_data.abilities.base.melee_ability import MeleeAbility
 from src.game_data.abilities.player_oriented.player_ability import PlayerAbility
-from src.controllers.entity_handlers import PLAYER, AC_ALLIES, AC_OBSTACLES
+from src.controllers import entity_handlers as eh
 from src.game_data.entities.damageable import Damageable
 from math import sqrt
 
@@ -10,17 +10,17 @@ class MonsterMeleeAbility(MeleeAbility, PlayerAbility):
 
     def take_effect(self):
 
-        p = PLAYER[0]
+        p = eh.PLAYER[0]
         if self.sweep_range > sqrt((self.user.x - p.x) ** 2 + (self.user.x - p.x) ** 2):
             p.take_damage(self.calc_damage(), self.damage_type)
             return  # only 1 target affected
 
-        for e in AC_ALLIES:
+        for e in eh.AC_ALLIES:
             if self.sweep_range > sqrt((self.user.x-e.x)**2 + (self.user.x-e.x)**2):
                 e.take_damage(self.calc_damage(), self.damage_type)
                 return  # only 1 target affected
 
-        for e in AC_OBSTACLES:
+        for e in eh.AC_OBSTACLES:
             if e.isinstance(Damageable) and self.sweep_range > sqrt((self.user.x-e.x)**2 + (self.user.x-e.x)**2):
                 e.take_damage(self.calc_damage(), self.damage_type)
                 return  # only 1 target affected

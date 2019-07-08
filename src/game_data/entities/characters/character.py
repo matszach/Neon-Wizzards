@@ -3,10 +3,13 @@ from src.game_data.entities.damageable import Damageable
 from src.controllers.states.levelinfo import get_field_at
 import src.controllers.entity_handlers as eh
 from util.unit_conversion import cartesian_to_polar
-from math import sqrt
+from math import sqrt, ceil
+from random import random, choice
+from src.game_data.entities.particles.gibbing import Gibbing
 
 
-# parent class to all characters (monsters, allies, player characters)
+
+# parent class to all characters ,(monsters, allies, player characters)
 class Character(Entity, Damageable):
 
     # ===== lifecycle =====
@@ -123,30 +126,48 @@ class Character(Entity, Damageable):
 
     # ===== misc =====
     # returns True if the character has a direct line of sight of the specified point on the map
+    # fixme (?) (seem to kinda work now - only bugs out on single blocks of wall)
     def sees_location(self, x_targ, y_targ, max_distance):
 
+        # true range
         x_range = self.x - x_targ
         y_range = self.y - y_targ
 
+        # total distance
+        distance = sqrt(x_range**2 + y_range**2)
+
         # if out of range - no need to check visibility
-        if sqrt(x_range**2 + y_range**2) > max_distance:
+        if distance > max_distance:
             return False
 
-        if x_range > y_range:
-            x_range = round(x_range)
-            for x in range(x_range):
-                y = round(x / x_range * y_range)
-                if get_field_at(x, y) == 1:
-                    return False
+        # absolute range
+        x_abs_range = abs(x_range)
+        y_abs_range = abs(y_range)
+
+        # step for checking visibility
+        if x_abs_range > y_abs_range:
+            x_step = - x_range / x_abs_range  # -> 1 or -1
+            y_step = - y_range / x_abs_range  # -> 0.x or -0.x
         else:
-            y_range = round(y_range)
-            for y in range(y_range):
-                x = round(y / y_range * x_range)
-                if get_field_at(x, y) == 1:
-                    return False
+            x_step = - x_range / y_abs_range  # -> 0.x or -0.x
+            y_step = - y_range / y_abs_range  # -> 1 or -1
+
+        # check on path
+        for i in range(ceil(x_abs_range)):
+            x_check = self.x + i * x_step
+            y_check = self.y + i * y_step
+            if get_field_at(x_check, y_check) == 1:
+                return False
 
         # otherwise the location is visible
         return True
+
+    # ===== gibbing on death animation
+    def gibbing_animation(self, nof_particles, allowed_gibs_nums):
+        for i in range(nof_particles):
+            p = Gibbing(choice(allowed_gibs_nums), random() * 360)
+            p.move_to(self.x, self.y)
+            eh.AC_PARTICLES.append(p)
 
     # constructor
     def __init__(self, sprite_set, display_size=1, collision_size=1, animation_timer=30,
