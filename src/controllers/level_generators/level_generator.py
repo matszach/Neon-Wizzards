@@ -5,7 +5,9 @@ import src.controllers.states.levelinfo as li
 from src.game_data.complete_sets.complete_monsters.cyberzombie import CyberZombie
 from src.game_data.complete_sets.complete_monsters.ratling import Ratling
 
-from src.controllers.entity_handlers import AC_MONSTERS
+from src.game_data.complete_sets.complete_pickups.crumbs import HealthCrumb, ManaCrumb
+
+from src.controllers import entity_handlers as eh
 
 
 # main level generator function
@@ -31,13 +33,25 @@ def generate_level(level, difficulty, player, level_seed=random()):
         z = CyberZombie()
         z.move_to(5+random()*10, 5+random()*10)
         if not z.check_if_in_wall():
-            AC_MONSTERS.append(z)
+            eh.AC_MONSTERS.append(z)
 
     for i in range(5):
         r = Ratling()
         r.move_to(5 + random() * 10, 5 + random() * 10)
         if not r.check_if_in_wall():
-            AC_MONSTERS.append(r)
+            eh.AC_MONSTERS.append(r)
+
+    for i in range(10):
+        c = HealthCrumb()
+        c.move_to(5 + random() * 10, 5 + random() * 10)
+        if not c.check_if_in_wall():
+            eh.AC_PARTICLES.append(c)
+
+    for i in range(10):
+        c = ManaCrumb()
+        c.move_to(5 + random() * 10, 5 + random() * 10)
+        if not c.check_if_in_wall():
+            eh.AC_PARTICLES.append(c)
 
     #  4 place player
     player.move_to(2, 2)

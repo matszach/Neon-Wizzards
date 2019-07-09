@@ -33,18 +33,18 @@ class Animation(GuiElement):
         self.finished = False
 
 
-class ScreenReveal(Animation):
+class ScreenRevealPixelation(Animation):
 
     # randomly remove a unit
     def animate(self):
         self.tick()
-        for i in range(5):
+        for i in range(20):
             if not len(self.hidden) == 0:
                 self.hidden.remove(choice(self.hidden))
 
     # draw hidden units
     def draw_self(self, surface):
-        u = unit_size[0]
+        u = unit_size[0]/2
         for block in self.hidden:
             pygame.draw.rect(surface, self.color, (cws[0]+block[0]*u, cws[1]+block[1]*u, u, u))
 
@@ -59,6 +59,6 @@ class ScreenReveal(Animation):
 
         # currently hidden units
         self.hidden = []
-        for x in range(0, ws[0]):
-            for y in range(0, ws[1]):
+        for x in range(0, 2*ws[0]):
+            for y in range(0, 2*ws[1]):
                 self.hidden.append((x, y))

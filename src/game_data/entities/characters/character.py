@@ -70,6 +70,14 @@ class Character(Entity, Damageable):
         if self.curr_mp <= 0:
             self.curr_mp = 0
 
+    def gain_mp(self, amt):
+
+        # the restoration is applied
+        self.curr_mp += amt
+
+        # current mp cannot exceed maximum mp
+        self.curr_mp = self.max_mp if self.curr_mp > self.max_mp else self.curr_mp
+
     def has_hp(self, amt):
         return self.curr_hp > amt  # ! not equals, no killing yourself with ability cost
 
