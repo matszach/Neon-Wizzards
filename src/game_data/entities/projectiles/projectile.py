@@ -1,5 +1,5 @@
 from src.game_data.entities.entity import Entity
-from src.controllers.entity_handlers import AC_MONSTERS, AC_OBSTACLES, AC_PROJECTILES, PLAYER
+from src.controllers import entity_handlers as eh
 from random import randint
 
 
@@ -51,27 +51,27 @@ class Projectile(Entity):
 
         # player
         if self.col_with_player:
-            if self.check_collision(PLAYER[0]):
-                self.on_character_collision(PLAYER[0])
+            if self.check_collision(eh.PLAYER[0]):
+                self.on_character_collision(eh.PLAYER[0])
                 self.on_collide()
 
         # monsters
         if self.col_with_monsters:
-            for m in AC_MONSTERS:
+            for m in eh.AC_MONSTERS:
                 if self.check_collision(m):
                     self.on_character_collision(m)
                     self.on_collide()
 
         # obstacles
         if self.col_with_obstacles:
-            for o in AC_OBSTACLES:
+            for o in eh.AC_OBSTACLES:
                 if self.check_collision(o):
                     self.on_obstacle_collision(o)
                     self.on_collide()
 
         # projectiles
         if self.col_with_projectiles:
-            for p in AC_PROJECTILES:
+            for p in eh.AC_PROJECTILES:
                 if self.check_collision(p):
                     self.on_projectile_collision(p)
                     self.on_collide()

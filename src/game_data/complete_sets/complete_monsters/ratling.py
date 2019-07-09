@@ -56,7 +56,7 @@ class Ratling(Monster):
 class RatlingGatlingPrj(SingleHitDamagingProjectile):
 
     def calc_damage(self):
-        return 1 + self.origin_entity.dexterity * (1 + 1 * random())
+        return 0.2 + self.origin_entity.dexterity * (0.2 + 0.2 * random())
 
     # constructor
     def __init__(self, origin_entity, direction):
