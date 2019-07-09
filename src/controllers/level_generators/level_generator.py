@@ -1,5 +1,5 @@
 import numpy as np
-from random import random
+from util.pseudorand import random
 import src.controllers.states.levelinfo as li
 
 from src.game_data.complete_sets.complete_monsters.cyberzombie import CyberZombie

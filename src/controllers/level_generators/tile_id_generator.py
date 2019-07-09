@@ -1,7 +1,7 @@
 import src.controllers.states.levelinfo as li
 import src.controllers.tile_handlers as th
 import numpy as np
-from random import randint
+from util.pseudorand import randint
 
 TILE_DICT = {
 

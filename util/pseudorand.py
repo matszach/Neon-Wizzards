@@ -1,5 +1,5 @@
 """
-This is to be used for all of the game's random number needs.
+This is to be used only when repeatability is required (eg. generating maps)
 This allows for level's to be generated from a seed with the same results
 """
 
@@ -59,7 +59,7 @@ def set_seed(new_seed):
         return True
 
 
-# returns true false if the passed seed
+# returns false if the passed seed
 # - contains non-number symbols
 # - seed is of incorrect length (not 10)
 def validate_seed(new_seed):
@@ -74,7 +74,6 @@ def random():
 
 # returns random integer from a to b (both included)
 def randint(a, b):
-    jump()
     return a + int(random() * (b - a + 1))
 
 
