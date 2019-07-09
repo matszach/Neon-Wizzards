@@ -7,9 +7,6 @@ import pygame
 # default and not animated decorator
 class Decorator(GuiElement):
 
-    def animate(self):
-        pass
-
     def draw_self(self, surface):
 
         u = unit_size[0]

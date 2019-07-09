@@ -36,3 +36,4 @@ def launch_character_selection_menu():
 
     gh.active_buttons.append(WideButton(x=6, y=7.5, text='Return',
                                         on_action=lambda: launch_main_menu()))
+

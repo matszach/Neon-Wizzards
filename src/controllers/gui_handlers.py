@@ -2,6 +2,7 @@
 
 active_buttons = []
 active_decorators = []
+active_animations = []
 
 
 def reset():
@@ -17,4 +18,9 @@ def handle_all(surface):
 
     for decor in active_decorators:
         decor.draw_self(surface)
-        decor.animate()
+
+    for anim in active_animations:
+        anim.draw_self(surface)
+        anim.animate()
+        if anim.finished:
+            active_animations.remove(anim)

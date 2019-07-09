@@ -1,5 +1,5 @@
 from src.game_data.entities.entity import Entity
-from src.controllers.entity_handlers import PLAYER
+from src.controllers import entity_handlers as eh
 
 
 # parent class to all pickups
@@ -17,8 +17,8 @@ class Pickup(Entity):
             self.slide_speed -= self.slide_speed_drop
 
         # checks collision with player
-        if self.check_collision(PLAYER[0]):
-            self.on_picked_up(PLAYER[0])
+        if self.check_collision(eh.PLAYER[0]):
+            self.on_picked_up(eh.PLAYER[0])
             self.expire()
 
     # take_effect that picking the pickup up has on the player

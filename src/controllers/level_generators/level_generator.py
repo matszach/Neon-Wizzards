@@ -1,5 +1,5 @@
 import numpy as np
-from util.pseudorand import random
+from random import random, seed
 import src.controllers.states.levelinfo as li
 
 from src.game_data.complete_sets.complete_monsters.cyberzombie import CyberZombie
@@ -9,7 +9,9 @@ from src.controllers.entity_handlers import AC_MONSTERS
 
 
 # main level generator function
-def generate_level(level, difficulty, player):
+def generate_level(level, difficulty, player, level_seed=random()):
+
+    seed(level_seed)
 
     print(f'LOG: Generating level {level} of difficulty {difficulty}.')
 
