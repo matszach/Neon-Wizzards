@@ -4,6 +4,7 @@ import src.controllers.tile_handlers as th
 from src.controllers.level_generators.level_generator import generate_level
 from src.controllers.level_generators.tile_id_generator import translate_to_tile_ids
 from util.gui_elements.animation import ScreenRevealPixelation
+from util.gui_elements.in_game_gui.ability_and_bar_gui import AbilityAndBarGui
 
 
 def launch_level(player_character, level, difficulty):
@@ -32,4 +33,5 @@ def launch_level(player_character, level, difficulty):
     # screen change animation
     gh.active_animations.append(ScreenRevealPixelation())
 
+    gh.active_decorators.append(AbilityAndBarGui())
 

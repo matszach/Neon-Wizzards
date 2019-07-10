@@ -203,6 +203,9 @@ MENU_NARROW_BUTTON_OFF = get_element_image(f'{GUI_PATH}narrow_button{FILE_EXTENS
 MENU_NARROW_BUTTON_ON = get_element_image(f'{GUI_PATH}narrow_button{FILE_EXTENSION}',
                                           2*SSIZE + BORDER_WIDTH, 0, 4*SSIZE + BORDER_WIDTH, SSIZE)
 
+ABILITY_AND_BAR_GUI = get_element_image(f'{GUI_PATH}in_game_gui{FILE_EXTENSION}',
+                                        0, 0, 7*SSIZE, SSIZE)
+
 
 # LOG
 print('LOG: GUI graphics loaded successfully.')

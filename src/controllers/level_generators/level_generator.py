@@ -41,17 +41,17 @@ def generate_level(level, difficulty, player, level_seed=random()):
         if not r.check_if_in_wall():
             eh.AC_MONSTERS.append(r)
 
-    for i in range(10):
+    for i in range(20):
         c = HealthCrumb()
         c.move_to(5 + random() * 10, 5 + random() * 10)
         if not c.check_if_in_wall():
-            eh.AC_PARTICLES.append(c)
+            eh.AC_PICKUPS.append(c)
 
-    for i in range(10):
+    for i in range(20):
         c = ManaCrumb()
         c.move_to(5 + random() * 10, 5 + random() * 10)
         if not c.check_if_in_wall():
-            eh.AC_PARTICLES.append(c)
+            eh.AC_PICKUPS.append(c)
 
     #  4 place player
     player.move_to(2, 2)

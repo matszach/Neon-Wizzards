@@ -25,10 +25,9 @@ class HealthCrumb(Pickup):
 
 
 class ManaCrumb(Pickup):
-
     # take_effect that picking the pickup up has on the player
     def on_picked_up(self, player):
-        player.heal(self.power)
+        player.gain_mp(self.power)
 
     # constructor
     def __init__(self, slide_direction=0, slide_speed=0):
