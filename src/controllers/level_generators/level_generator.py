@@ -11,11 +11,11 @@ from src.controllers import entity_handlers as eh
 
 
 # main level generator function
-def generate_level(level, difficulty, player, level_seed=random()):
+def generate_level(level, difficulty, player, level_seed):
 
     seed(level_seed)
 
-    print(f'LOG: Generating level {level} of difficulty {difficulty}.')
+    print(f'LOG: Generating level {level} of difficulty {difficulty}, using seed \"{level_seed}\"')
 
     # TODO implement me
     #  1 generate tile map (0, 1 ,2)

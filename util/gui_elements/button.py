@@ -54,7 +54,7 @@ class Button(GuiElement):
 
         # render text, centered around the center of the button
         # font load might be replaced / moved
-        font = pygame.font.Font(f'resources{SEP}fonts{SEP}menu_font.ttf', font_size)
+        font = pygame.font.Font(f'resources{SEP}fonts{SEP}menu_font.otf', font_size)
         txt_surf = font.render(self.text, True, (0, 0, 0))
         txt_rect = txt_surf.get_rect()
 

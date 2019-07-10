@@ -5,6 +5,7 @@ from util.gui_elements.button import WideButton, NarrowButton
 from src.game_data.complete_sets.complete_player_characters.estera.pc_estera import PlayerCharacterEstera
 from src.game_data.complete_sets.complete_player_characters.greg.pc_greg import PlayerCharacterGreg
 from src.controllers.launchers.level_launcher import launch_level
+from random import random
 
 
 def launch_character_selection_menu():
@@ -21,9 +22,12 @@ def launch_character_selection_menu():
     eh.disable()
     th.disable()
 
+    # TODO GET SEED FROM SOMEWHERE OR GET RANDOMIF NONECHOOSEN
+    new_seed = random()
+
     # TODO TEMP
     gh.active_buttons.append(NarrowButton(x=2.5, y=6, text='Estera',
-                                          on_action=lambda: launch_level(PlayerCharacterEstera(), 1, 1)))
+                                          on_action=lambda: launch_level(PlayerCharacterEstera(), 1, 1, new_seed)))
 
     gh.active_buttons.append(NarrowButton(x=5.5, y=6, text='Green',
                                           on_action=lambda:  None))

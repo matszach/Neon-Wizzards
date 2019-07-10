@@ -46,3 +46,12 @@ def draw_usable(surface):
         xe = current_usable_window_space[2] + current_usable_window_space[0]
         y = i * unit_size[0] + current_usable_window_space[1]
         pygame.draw.line(surface, (70, 70, 70), (xs, y), (xe, y))
+
+
+def hide_unusable(surface):
+    x, y, w, h = current_usable_window_space
+    pygame.draw.rect(surface, (0, 0, 0), (0, 0, 2 * x + w, y))
+    pygame.draw.rect(surface, (0, 0, 0), (0, y + h, 2 * x + w, 2 * y + h))
+    pygame.draw.rect(surface, (0, 0, 0), (0, 0, x, 2 * y + h))
+    pygame.draw.rect(surface, (0, 0, 0), (x + w, 0, 2 * x + w, 2 * y + h))
+

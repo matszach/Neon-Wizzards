@@ -149,8 +149,9 @@ def work_and_paint_all(surface):
         paint_player(surface, p)
         p.misc_controls()
         if p.expired:
-            pass
             # todo prompt game over sequence here (or in player's on_expire?)
+            from src.controllers.launchers import main_menu_launcher
+            main_menu_launcher.launch_main_menu()
 
     # "over-characters" entities
     for entity_set in [AC_PARTICLES, AC_PROJECTILES]:

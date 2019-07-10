@@ -30,8 +30,12 @@ class PlayerCharacterEstera(PlayerCharacter):
                                  fire_def=FIRE_DEF, cold_def=COLD_DEF, hp=HP, mp=MP, speed=SPEED,
                                  strength=STR, dexterity=DEX, intelligence=INT)
 
+        # level up manager reset/setup
+        elm.reset()
+
         # base skills
         elm.get_talent(1, 1, self)
         elm.get_talent(1, 2, self)
         elm.get_talent(1, 3, self)
+
 

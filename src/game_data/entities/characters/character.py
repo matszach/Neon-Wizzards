@@ -8,7 +8,6 @@ from random import random, choice
 from src.game_data.entities.particles.gibbing import Gibbing
 
 
-
 # parent class to all characters ,(monsters, allies, player characters)
 class Character(Entity, Damageable):
 

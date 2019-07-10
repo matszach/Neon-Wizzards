@@ -21,6 +21,11 @@ KNOWN_SKILLS = [
 ]
 
 
+def reset():
+    for i in range(len(KNOWN_SKILLS)):
+        KNOWN_SKILLS[i] = [0, 0, 0, 0, 0]
+
+
 def get_talent(level, i, player):
 
     # raise exception if illegal player passed

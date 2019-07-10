@@ -61,7 +61,8 @@ while True:
     gh.handle_all(surface[0])
 
     # draws usable window space
-    # vi.draw_usable(surface[0])
+    # vi.draw_usable(surface[0])\
+    vi.hide_unusable(surface[0])
     # print(clock.get_fps())  # move display to game screen
 
     # draws current game state on display
