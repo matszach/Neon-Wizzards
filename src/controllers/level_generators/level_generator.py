@@ -6,6 +6,7 @@ from src.game_data.complete_sets.complete_monsters.cyberzombie import CyberZombi
 from src.game_data.complete_sets.complete_monsters.ratling import Ratling
 
 from src.game_data.complete_sets.complete_pickups.crumbs import HealthCrumb, ManaCrumb
+from src.game_data.complete_sets.complete_pickups.keys import KeyRed, KeyGreen, KeyBlue, KeyBoss
 
 from src.game_data.complete_sets.complete_obstacles.destroyable_pickup_container import DestroyablePickupContainer
 
@@ -37,13 +38,13 @@ def generate_level(level, difficulty, player, level_seed):
     #  2 generate doors and keys
 
     #  3 generate monsters, obstacles, areas etc.
-    for i in range(4):
+    for i in range(6):
         z = CyberZombie()
         z.move_to(5+random()*10, 5+random()*10)
         if not z.check_if_in_wall():
             eh.AC_MONSTERS.append(z)
 
-    for i in range(3):
+    for i in range(2):
         r = Ratling()
         r.move_to(5 + random() * 10, 5 + random() * 10)
         if not r.check_if_in_wall():
@@ -70,10 +71,11 @@ def generate_level(level, difficulty, player, level_seed):
             c.contain(ManaCrumb())
             c.contain(HealthCrumb())
             c.contain(HealthCrumb())
-            c.contain(ManaCrumb())
-            c.contain(ManaCrumb())
-            c.contain(HealthCrumb())
-            c.contain(HealthCrumb())
+
+    for k in [KeyRed(), KeyGreen(), KeyBlue(), KeyBoss()]:
+        k.move_to(5 + random() * 10, 5 + random() * 10)
+        if not k.check_if_in_wall():
+            eh.AC_PICKUPS.append(k)
 
     #  4 place player
     player.move_to(2, 2)
