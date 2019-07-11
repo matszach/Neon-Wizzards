@@ -7,6 +7,7 @@ from src.game_data.complete_sets.complete_monsters.ratling import Ratling
 
 from src.game_data.complete_sets.complete_pickups.crumbs import HealthCrumb, ManaCrumb
 from src.game_data.complete_sets.complete_pickups.keys import KeyRed, KeyGreen, KeyBlue, KeyBoss
+from src.game_data.complete_sets.complete_obstacles.doors import DoorRed, DoorGreen, DoorBlue, DoorBoss
 
 from src.game_data.complete_sets.complete_obstacles.destroyable_pickup_container import DestroyablePickupContainer
 
@@ -74,8 +75,11 @@ def generate_level(level, difficulty, player, level_seed):
 
     for k in [KeyRed(), KeyGreen(), KeyBlue(), KeyBoss()]:
         k.move_to(5 + random() * 10, 5 + random() * 10)
-        if not k.check_if_in_wall():
-            eh.AC_PICKUPS.append(k)
+        eh.AC_PICKUPS.append(k)
+            
+    for d in [DoorRed(), DoorGreen(), DoorBlue(), DoorBoss()]:
+        d.move_to(5 + random() * 10, 5 + random() * 10)
+        eh.AC_OBSTACLES.append(d)
 
     #  4 place player
     player.move_to(2, 2)

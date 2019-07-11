@@ -28,9 +28,9 @@ class Door(Obstacle):
         pass
 
     def open(self):
-        if self.blocks_movement:
-            self.blocks_movement = False
-            self.on_open()
+        self.blocks_movement = False
+        self.sprite_set = self.sprite_set_open
+        self.on_open()
 
     # ===== closing =====
     def check_close_condition(self):
@@ -40,9 +40,9 @@ class Door(Obstacle):
         pass
 
     def close(self):
-        if not self.blocks_movement:
-            self.blocks_movement = True
-            self.on_close()
+        self.blocks_movement = True
+        self.sprite_set = self.sprite_set_closed
+        self.on_close()
 
     # constructor
     def __init__(self, sprite_set_open, sprite_set_closed, display_size=1, collision_size=1, animation_timer=15,

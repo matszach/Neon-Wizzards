@@ -125,7 +125,7 @@ class Entity:
     def __init__(self, sprite_set, display_size=1, collision_size=1, animation_timer=15):
 
         # references entity's sprite set
-        self.sprite_set = sprite_set  # todo???
+        self.sprite_set = sprite_set
 
         # animation
         # animates character's legs, projectile movement or obstacle's idle animation
