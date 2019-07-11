@@ -81,7 +81,7 @@ class AbilityAndBarGui(Decorator):
         y_ab = y_ab + 13 / 32 * u
         x_init = x_init + 14 / 32 * u
         for i in range(12):
-            txt_surf = font.render(f'{KEY_SYMBOLS[i]}', True, (90, 40, 0))
+            txt_surf = font.render(f'{KEY_SYMBOLS[i]}', True, (30, 10, 0))
             txt_rect = txt_surf.get_rect()
             txt_rect.center = (x_init + i * (icon_width + border), y_ab)
             surface.blit(txt_surf, txt_rect)

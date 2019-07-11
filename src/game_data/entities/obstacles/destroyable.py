@@ -13,15 +13,11 @@ class Destroyable(Obstacle, Damageable):
 
         # check if the destroyable should be destroyed
         if self.is_dead():
-            self.destroy()
+            self.expire()
 
     # ===== breaking ======
-    def on_destroy(self):
+    def on_expire(self):
         pass
-
-    def destroy(self):
-        self.expire()
-        self.on_destroy()
 
     # constructor
     def __init__(self, sprite_set, display_size=1, collision_size=1, animation_timer=15,

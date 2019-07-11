@@ -21,7 +21,7 @@ class MonsterMeleeAbility(MeleeAbility, PlayerAbility):
                 return  # only 1 target affected
 
         for e in eh.AC_OBSTACLES:
-            if e.isinstance(Damageable) and self.sweep_range > sqrt((self.user.x-e.x)**2 + (self.user.x-e.x)**2):
+            if isinstance(e, Damageable) and self.sweep_range > sqrt((self.user.x-e.x)**2 + (self.user.x-e.x)**2):
                 e.take_damage(self.calc_damage(), self.damage_type)
                 return  # only 1 target affected
 
