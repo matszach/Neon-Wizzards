@@ -4,6 +4,8 @@ from src.controllers.views.imginfo import OBSTACLE_DOOR_RED, OBSTACLE_DOOR_GREEN
 
 from src.controllers import entity_handlers as eh
 
+DIST_TO_PLAYER = 1
+
 
 class DoorRed(Door):
 
@@ -11,7 +13,10 @@ class DoorRed(Door):
         return False
 
     def check_open_condition(self):
-        return eh.PLAYER[0].has_red_key
+        player = eh.PLAYER[0]
+        if (abs(player.x-self.x) + abs(player.y-self.y))/2 > DIST_TO_PLAYER:
+            return False
+        return player.has_red_key
 
     def on_open(self):
         pass
@@ -27,7 +32,10 @@ class DoorGreen(Door):
         return False
 
     def check_open_condition(self):
-        return eh.PLAYER[0].has_green_key
+        player = eh.PLAYER[0]
+        if (abs(player.x - self.x) + abs(player.y - self.y)) / 2 > DIST_TO_PLAYER:
+            return False
+        return player.has_green_key
 
     def on_open(self):
         pass
@@ -43,7 +51,10 @@ class DoorBlue(Door):
         return False
 
     def check_open_condition(self):
-        return eh.PLAYER[0].has_blue_key
+        player = eh.PLAYER[0]
+        if (abs(player.x - self.x) + abs(player.y - self.y)) / 2 > DIST_TO_PLAYER:
+            return False
+        return player.has_blue_key
 
     def on_open(self):
         pass
@@ -59,7 +70,10 @@ class DoorBoss(Door):
         return False
 
     def check_open_condition(self):
-        return eh.PLAYER[0].has_boss_key
+        player = eh.PLAYER[0]
+        if (abs(player.x - self.x) + abs(player.y - self.y)) / 2 > DIST_TO_PLAYER:
+            return False
+        return player.has_boss_key
 
     def on_open(self):
         pass

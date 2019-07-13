@@ -27,7 +27,7 @@ class Pickup(Entity):
 
     # constructor
     def __init__(self, sprite_set, display_size=0.6, collision_size=0.5, animation_timer=60,
-                 slide_speed=0.0, slide_speed_drop=0.005, slide_direction=0):
+                 slide_speed=0.0, slide_speed_drop=0.002, slide_direction=0):
 
         # super constructor
         Entity.__init__(self, sprite_set, display_size, collision_size, animation_timer)

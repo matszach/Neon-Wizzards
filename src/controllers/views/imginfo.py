@@ -10,6 +10,13 @@ BORDER_WIDTH = 1
 FILE_EXTENSION = '.png'
 SEP = os.sep
 
+# assets loaded counter for logging
+loaded_resources = [0]
+
+
+def up_count():
+    loaded_resources[0] += 1
+
 
 # ===== sprite sets / tile sets / icons =====
 def get_image_at(image_set, x, y, img_size):
@@ -35,6 +42,7 @@ def create_image_table(path, x_min, x_max, y_min, y_max, img_size):
         for i, img in enumerate(row):
             row[i] = pygame.image.fromstring(img.tobytes(), img.size, img.mode).convert_alpha()
 
+    up_count()
     return image_table
 
 
@@ -47,6 +55,7 @@ def crop_image(image_set, x_s=0, y_s=0, x_e=0, y_e=0):
 def get_element_image(path, x_s=0, y_s=0, x_e=0, y_e=0):
     image_set = load_image_set(path)
     img = crop_image(image_set, x_s, y_s, x_e, y_e)
+    up_count()
     return pygame.image.fromstring(img.tobytes(), img.size, img.mode).convert_alpha()
 
 
@@ -86,6 +95,8 @@ MONSTERS_SPRITESETS_PATH = f'{SPRITESETS_PATH}monsters{SEP}'
 
 MONSTER_CYBERZOMBIE = create_image_table(f'{MONSTERS_SPRITESETS_PATH}cyberzombie{FILE_EXTENSION}', 0, 4, 0, 2, SSIZE)
 MONSTER_RATLING = create_image_table(f'{MONSTERS_SPRITESETS_PATH}ratling{FILE_EXTENSION}', 0, 4, 0, 2, SSIZE)
+MONSTER_FIRE_SHELL_IMP = create_image_table(f'{MONSTERS_SPRITESETS_PATH}fire_shell_imp{FILE_EXTENSION}', 0, 4, 0, 3, SSIZE)
+MONSTER_ICE_SHELL_IMP = create_image_table(f'{MONSTERS_SPRITESETS_PATH}ice_shell_imp{FILE_EXTENSION}', 0, 4, 0, 3, SSIZE)
 
 
 # obstacles
@@ -165,6 +176,13 @@ PROJECTILE_ARROW_GREEN = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}arrow
 PROJECTILE_ARROW_CYAN = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}arrow{FILE_EXTENSION}', 0, 4, 4, 5, SSIZE)
 PROJECTILE_ARROW_DBLUE = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}arrow{FILE_EXTENSION}', 0, 4, 5, 6, SSIZE)
 
+PROJECTILE_MMISSILE_GRAY = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}magic_missile{FILE_EXTENSION}', 0, 4, 0, 1, SSIZE)
+PROJECTILE_MMISSILE_RED = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}magic_missile{FILE_EXTENSION}', 0, 4, 1, 2, SSIZE)
+PROJECTILE_MMISSILE_YELLOW = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}magic_missile{FILE_EXTENSION}', 0, 4, 2, 3, SSIZE)
+PROJECTILE_MMISSILE_GREEN = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}magic_missile{FILE_EXTENSION}', 0, 4, 3, 4, SSIZE)
+PROJECTILE_MMISSILE_CYAN = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}magic_missile{FILE_EXTENSION}', 0, 4, 4, 5, SSIZE)
+PROJECTILE_MMISSILE_DBLUE = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}magic_missile{FILE_EXTENSION}', 0, 4, 5, 6, SSIZE)
+
 PROJECTILE_ICE_MISSILE = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}ice{FILE_EXTENSION}', 0, 4, 0, 1, SSIZE)
 PROJECTILE_ICE_STAR = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}ice{FILE_EXTENSION}', 0, 4, 1, 2, SSIZE)
 PROJECTILE_ICE_ORB = create_image_table(f'{PROJECTILES_SPRITESETS_PATH}ice{FILE_EXTENSION}', 0, 4, 2, 3, SSIZE)
@@ -209,3 +227,4 @@ ABILITY_AND_BAR_GUI = get_element_image(f'{GUI_PATH}in_game_gui{FILE_EXTENSION}'
 
 # LOG
 print('LOG: GUI graphics loaded successfully.')
+print(f'LOG: {loaded_resources[0]} graphical resources loaded')

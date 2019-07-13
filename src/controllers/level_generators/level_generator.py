@@ -4,10 +4,11 @@ import src.controllers.states.levelinfo as li
 
 from src.game_data.complete_sets.complete_monsters.cyberzombie import CyberZombie
 from src.game_data.complete_sets.complete_monsters.ratling import Ratling
+from src.game_data.complete_sets.complete_monsters.shell_imps import FireShellImp, IceShellImp
 
 from src.game_data.complete_sets.complete_pickups.crumbs import HealthCrumb, ManaCrumb
 from src.game_data.complete_sets.complete_pickups.keys import KeyRed, KeyGreen, KeyBlue, KeyBoss
-from src.game_data.complete_sets.complete_obstacles.doors import DoorRed, DoorGreen, DoorBlue, DoorBoss
+from src.game_data.complete_sets.complete_obstacles.keydoors import DoorRed, DoorGreen, DoorBlue, DoorBoss
 
 from src.game_data.complete_sets.complete_obstacles.destroyable_pickup_container import DestroyablePickupContainer
 
@@ -25,7 +26,7 @@ def generate_level(level, difficulty, player, level_seed):
 
     # TODO implement me
     #  1 generate tile map (0, 1 ,2)
-    li.level_fields = np.ones((80, 120), dtype=int)
+    li.level_fields = np.ones((100, 100), dtype=int)
 
     for i in range(len(li.level_fields)):
         for j in range(len(li.level_fields[0])):
@@ -39,33 +40,47 @@ def generate_level(level, difficulty, player, level_seed):
     #  2 generate doors and keys
 
     #  3 generate monsters, obstacles, areas etc.
-    for i in range(6):
+
+    MIN, MAX = 5, 90
+    for i in range(30):
         z = CyberZombie()
-        z.move_to(5+random()*10, 5+random()*10)
+        z.move_to(MIN+random()*MAX, MIN+random()*MAX)
         if not z.check_if_in_wall():
             eh.AC_MONSTERS.append(z)
 
-    for i in range(2):
+    for i in range(10):
         r = Ratling()
-        r.move_to(5 + random() * 10, 5 + random() * 10)
+        r.move_to(MIN + random() * MAX, MIN + random() * MAX)
         if not r.check_if_in_wall():
             eh.AC_MONSTERS.append(r)
 
-    for i in range(10):
+    for i in range(15):
+        r = FireShellImp()
+        r.move_to(MIN + random() * MAX, MIN + random() * MAX)
+        if not r.check_if_in_wall():
+            eh.AC_MONSTERS.append(r)
+
+    for i in range(15):
+        r = IceShellImp()
+        r.move_to(MIN + random() * MAX, MIN + random() * MAX)
+        if not r.check_if_in_wall():
+            eh.AC_MONSTERS.append(r)
+
+    for i in range(120):
         c = HealthCrumb()
-        c.move_to(5 + random() * 10, 5 + random() * 10)
+        c.move_to(MIN + random() * MAX, MIN + random() * MAX)
         if not c.check_if_in_wall():
             eh.AC_PICKUPS.append(c)
 
-    for i in range(10):
+    for i in range(120):
         c = ManaCrumb()
-        c.move_to(5 + random() * 10, 5 + random() * 10)
+        c.move_to(MIN + random() * MAX, MIN + random() * MAX)
         if not c.check_if_in_wall():
             eh.AC_PICKUPS.append(c)
 
-    for i in range(10):
+    for i in range(100):
         c = DestroyablePickupContainer(sprite_set_type=int(random()*4))
-        c.move_to(5 + random() * 10, 5 + random() * 10)
+        c.move_to(MIN + random() * MAX, MIN + random() * MAX)
         if not c.check_if_in_wall():
             eh.AC_OBSTACLES.append(c)
             c.contain(ManaCrumb())
@@ -74,11 +89,11 @@ def generate_level(level, difficulty, player, level_seed):
             c.contain(HealthCrumb())
 
     for k in [KeyRed(), KeyGreen(), KeyBlue(), KeyBoss()]:
-        k.move_to(5 + random() * 10, 5 + random() * 10)
+        k.move_to(MIN + random() * MAX, MIN + random() * MAX)
         eh.AC_PICKUPS.append(k)
             
     for d in [DoorRed(), DoorGreen(), DoorBlue(), DoorBoss()]:
-        d.move_to(5 + random() * 10, 5 + random() * 10)
+        d.move_to(MIN + random() * MAX, MIN + random() * MAX)
         eh.AC_OBSTACLES.append(d)
 
     #  4 place player

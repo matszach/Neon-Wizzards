@@ -6,7 +6,7 @@ class PickupDropping:
 
     def drop_all_items(self):
         for p in self.pickups_held:
-            p.slide_speed = 0.1
+            p.slide_speed = 0.07
             p.slide_direction = randint(0, 360)
             p.move_to(self.x, self.y)
             eh.AC_PICKUPS.append(p)

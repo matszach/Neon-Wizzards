@@ -6,9 +6,9 @@ from random import randint
 # parent class to all abilities that produce a single projectile
 class SingleProjectileAbility(Ability, ProjectileUsing):
 
-    # should be overridden
+    # can be overridden
     def build_projectile(self, origin_entity, direction):
-        pass
+        return self.ProjectileClass(origin_entity, direction)
 
     # generate accuracy_offset
     def get_offset(self):

@@ -12,10 +12,15 @@ class Monster(Character):
         pass
 
     # ===== player locating =====
-    def walk_directly_to_player(self):
+    # offset might be used for strafing around player, etc.
+    def walk_directly_to_player(self, offset=0):
         deg = self.get_dir_and_distance_to_player()[0]
-        self.character_travel(deg)
+        self.character_travel(deg+offset)
         self.turn(deg)
+
+    def face_player(self, offset=0):
+        deg = self.get_dir_and_distance_to_player()[0]
+        self.turn(deg+offset)
 
     def sees_player(self):
         player = eh.PLAYER[0]

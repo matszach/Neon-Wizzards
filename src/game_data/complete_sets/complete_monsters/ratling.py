@@ -72,10 +72,6 @@ class RatlingGatlingPrj(SingleHitDamagingProjectile):
 # Abilities
 class RatlingGatling(SingleProjectileAbility):
 
-    # TODO
-    def build_projectile(self, origin_entity, direction):
-        return self.ProjectileClass(origin_entity, direction)
-
     # constructor
     def __init__(self, user):
 
